@@ -313,7 +313,7 @@ function CSVImportModal({ open, onClose, onImport }) {
 }
 
 /* ─── Project Form Modal ─── */
-function ProjectFormModal({ open, onClose, onSave, onDelete, project, allEmployees, allEquipment, usedColors }) {
+function ProjectFormModal({ open, onClose, onSave, onDelete, onSplit, project, allEmployees, allEquipment, usedColors }) {
   const isEdit = !!project;
   const [name, setName] = useState('');
   const [startDate, setStartDate] = useState('');
@@ -325,12 +325,20 @@ function ProjectFormModal({ open, onClose, onSave, onDelete, project, allEmploye
   const [equips, setEquips] = useState([]);
   const [newEquip, setNewEquip] = useState('');
   const [showEquipDrop, setShowEquipDrop] = useState(false);
+  const [splitMode, setSplitMode] = useState(false);
+  const [splitDate, setSplitDate] = useState('');
+
+  /* Can split if project spans more than 1 day */
+  const canSplit = isEdit && startDate && endDate && startDate < endDate;
+  /* Min split date = day after start, max = end date */
+  const splitMin = startDate ? fmtDate(addDays(new Date(startDate+'T00:00:00'), 1)) : '';
+  const splitMax = endDate || '';
 
   useEffect(() => {
     if (open) {
       if (project) { setName(project.name); setStartDate(project.startDate); setEndDate(project.endDate); setColor(project.color); setEmps([...project.employees]); setEquips([...(project.equipment||[])]); }
       else { setName(''); setStartDate(fmtDate(new Date())); setEndDate(fmtDate(new Date())); setColor(PROJECT_COLORS.find(c => !usedColors.includes(c)) || PROJECT_COLORS[0]); setEmps([]); setEquips([]); }
-      setNewEmp(''); setNewEquip('');
+      setNewEmp(''); setNewEquip(''); setSplitMode(false); setSplitDate('');
     }
   }, [open, project]);
 
@@ -407,6 +415,46 @@ function ProjectFormModal({ open, onClose, onSave, onDelete, project, allEmploye
             }, e))
           )
         )
+      ),
+      /* ── Split Job Section ── */
+      canSplit && React.createElement('div', { style:{ borderTop:'1px solid #e5e7eb',paddingTop:12 }},
+        !splitMode
+          ? React.createElement('button', {
+              onClick:()=>{ setSplitMode(true); setSplitDate(splitMin); },
+              style:{ display:'flex',alignItems:'center',gap:6,padding:'8px 14px',borderRadius:8,border:'1px solid #d1d5db',background:'#fff',color:'#374151',fontWeight:600,fontSize:13,cursor:'pointer',width:'100%',justifyContent:'center' },
+              onMouseOver:e=>e.currentTarget.style.background='#f9fafb', onMouseOut:e=>e.currentTarget.style.background='#fff'
+            },
+              React.createElement('span', { style:{ fontSize:16 }}, '\u2702\uFE0F'),
+              'Split Job at a Date'
+            )
+          : React.createElement('div', { style:{ background:'#fffbeb',border:'1px solid #fde68a',borderRadius:8,padding:12 }},
+              React.createElement('div', { style:{ display:'flex',alignItems:'center',gap:6,marginBottom:8 }},
+                React.createElement('span', { style:{ fontSize:14 }}, '\u2702\uFE0F'),
+                React.createElement('span', { style:{ fontSize:13,fontWeight:700,color:'#92400e' }}, 'Split Job'),
+                React.createElement('span', { style:{ fontSize:12,color:'#b45309' }}, '\u2014 choose the date where Part 2 begins')
+              ),
+              React.createElement('div', { style:{ display:'flex',alignItems:'center',gap:8,marginBottom:10 }},
+                React.createElement('div', { style:{ flex:1 }},
+                  React.createElement('label', { style:{ fontSize:11,fontWeight:600,color:'#92400e',display:'block',marginBottom:3 }}, 'Split Date (start of Part 2)'),
+                  React.createElement('input', { type:'date', value:splitDate, onChange:e=>setSplitDate(e.target.value), min:splitMin, max:splitMax, style:{ padding:'8px 12px',borderRadius:8,border:'1px solid #fde68a',fontSize:14,width:'100%',outline:'none',background:'#fff' }})
+                )
+              ),
+              splitDate && React.createElement('div', { style:{ fontSize:12,color:'#78350f',marginBottom:10,lineHeight:1.5,background:'#fef3c7',padding:'8px 10px',borderRadius:6 }},
+                React.createElement('div', {}, React.createElement('strong', {}, 'Part 1: '), `${startDate} to ${fmtDate(addDays(new Date(splitDate+'T00:00:00'), -1))} \u2014 same crew`),
+                React.createElement('div', {}, React.createElement('strong', {}, 'Part 2: '), `${splitDate} to ${endDate} \u2014 edit crew after split`)
+              ),
+              React.createElement('div', { style:{ display:'flex',gap:8,justifyContent:'flex-end' }},
+                React.createElement('button', {
+                  onClick:()=>{ setSplitMode(false); setSplitDate(''); },
+                  style:{ padding:'7px 14px',borderRadius:6,border:'1px solid #d1d5db',background:'#fff',color:'#374151',fontWeight:600,fontSize:12,cursor:'pointer' }
+                }, 'Cancel'),
+                React.createElement('button', {
+                  onClick:()=>{ if(splitDate>=splitMin && splitDate<=splitMax) { onSplit(project, splitDate); onClose(); }},
+                  disabled:!splitDate || splitDate<splitMin || splitDate>splitMax,
+                  style:{ padding:'7px 14px',borderRadius:6,border:'none',background: splitDate&&splitDate>=splitMin&&splitDate<=splitMax ? '#d97706':'#d1d5db',color:'#fff',fontWeight:600,fontSize:12,cursor: splitDate&&splitDate>=splitMin&&splitDate<=splitMax ? 'pointer':'not-allowed' }
+                }, '\u2702\uFE0F Confirm Split')
+              )
+            )
       ),
       React.createElement('div', { style:{ display:'flex',justifyContent: isEdit ? 'space-between' : 'flex-end',gap:8,marginTop:8 }},
         isEdit && React.createElement('button', {
@@ -690,6 +738,44 @@ function App() {
       try { await api.deleteProject(id); setSyncStatus('saved'); }
       catch { setSyncStatus('error'); }
     }
+  }
+
+  async function handleSplitProject(project, splitDateStr) {
+    /* Split a project into two parts at splitDateStr.
+       Part 1: original start \u2192 day before split date (keeps original crew)
+       Part 2: split date \u2192 original end (keeps original crew, user edits after) */
+    const dayBefore = fmtDate(addDays(new Date(splitDateStr+'T00:00:00'), -1));
+    const part1 = { name: project.name, startDate: project.startDate, endDate: dayBefore, color: project.color, employees: [...project.employees], equipment: [...(project.equipment||[])] };
+    const part2 = { name: project.name, startDate: splitDateStr, endDate: project.endDate, color: project.color, employees: [...project.employees], equipment: [...(project.equipment||[])] };
+
+    /* Remove original project */
+    setProjects(prev => prev.filter(p => p.id !== project.id));
+
+    /* Create both parts with new IDs */
+    let id = nextId;
+    const newPart1 = { ...part1, id: id };
+    const newPart2 = { ...part2, id: id + 1 };
+    setProjects(prev => [...prev, newPart1, newPart2]);
+    setNextId(id + 2);
+
+    /* Sync with Google Sheets */
+    if (api.isConnected()) {
+      setSyncStatus('saving');
+      try {
+        await api.deleteProject(project.id);
+        const res1 = await api.createProject(part1);
+        if (res1.id) setProjects(prev => prev.map(p => p.id === newPart1.id ? { ...p, id: res1.id } : p));
+        const res2 = await api.createProject(part2);
+        if (res2.id) setProjects(prev => prev.map(p => p.id === newPart2.id ? { ...p, id: res2.id } : p));
+        setSyncStatus('saved');
+      } catch { setSyncStatus('error'); }
+    }
+
+    /* Open Part 2 for editing so user can adjust the crew */
+    setTimeout(() => {
+      setEditProject(newPart2);
+      setShowProjectModal(true);
+    }, 300);
   }
 
   async function handleImportProjects(imported) {
@@ -1044,7 +1130,7 @@ function App() {
     ),
 
     /* ── Modals ── */
-    React.createElement(ProjectFormModal, { open:showProjectModal, onClose:()=>{ setShowProjectModal(false); setEditProject(null); }, onSave:handleSaveProject, onDelete:handleDeleteProject, project:editProject, allEmployees:employees, allEquipment:equipment, usedColors }),
+    React.createElement(ProjectFormModal, { open:showProjectModal, onClose:()=>{ setShowProjectModal(false); setEditProject(null); }, onSave:handleSaveProject, onDelete:handleDeleteProject, onSplit:handleSplitProject, project:editProject, allEmployees:employees, allEquipment:equipment, usedColors }),
     React.createElement(CSVImportModal, { open:showImport, onClose:()=>setShowImport(false), onImport:handleImportProjects }),
     React.createElement(ManageEmployeesModal, { open:showEmployees, onClose:()=>setShowEmployees(false), employees, onUpdate:handleUpdateEmployees }),
     React.createElement(ManageEquipmentModal, { open:showEquipment, onClose:()=>setShowEquipment(false), equipment, onUpdate:handleUpdateEquipment }),
