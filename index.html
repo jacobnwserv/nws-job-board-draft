@@ -796,6 +796,26 @@ function App() {
 
   const overbookedEquipSet = useMemo(() => new Set(Object.keys(overbookedEquip)), [overbookedEquip]);
 
+  /* ── Available employees per day (unassigned to any project) ── */
+  const [showAvailability, setShowAvailability] = useState(true);
+
+  const availableByDay = useMemo(() => {
+    const result = {};
+    for (const day of days) {
+      const ds = fmtDate(day);
+      const assignedToday = new Set();
+      for (const p of projects) {
+        if (p.startDate <= ds && p.endDate >= ds) {
+          for (const emp of p.employees) assignedToday.add(emp);
+        }
+      }
+      result[ds] = employees.filter(emp => !assignedToday.has(emp));
+    }
+    return result;
+  }, [days, projects, employees]);
+
+
+
   const monthYearLabel = useMemo(() => {
     if (days.length === 0) return '';
     const first=days[0]; const last=days[days.length-1];
@@ -933,7 +953,64 @@ function App() {
       })
     ),
 
-    /* ── Overbooking warnings ── */
+/* ── Available Employees by Day ── */
+    React.createElement('div', {
+      style:{ flexShrink:0,borderTop:'2px solid #d1d5db',background:'#f9fafb' }
+    },
+      /* Toggle header */
+      React.createElement('div', {
+        onClick:()=>setShowAvailability(!showAvailability),
+        style:{ display:'flex',alignItems:'center',justifyContent:'space-between',padding:'8px 16px',cursor:'pointer',userSelect:'none' },
+        onMouseOver:e=>e.currentTarget.style.background='#f1f5f9',
+        onMouseOut:e=>e.currentTarget.style.background='transparent'
+      },
+        React.createElement('div', { style:{ display:'flex',alignItems:'center',gap:8 }},
+          React.createElement('span', { style:{ fontSize:14 }}, '\u{1F4CB}'),
+          React.createElement('span', { style:{ fontSize:13,fontWeight:700,color:'#334155' }}, 'Available Employees'),
+          React.createElement('span', { style:{ fontSize:11,fontWeight:500,color:'#94a3b8' }}, `(unassigned by day)`)
+        ),
+        React.createElement('span', { style:{ fontSize:12,color:'#94a3b8',fontWeight:600,transition:'transform 0.2s',transform:showAvailability?'rotate(180deg)':'rotate(0deg)' }}, '▼')
+      ),
+      /* Grid of available employees per day */
+      showAvailability && React.createElement('div', {
+        style:{ maxHeight:200,overflow:'auto',padding:'0 12px 10px' }
+      },
+        weeks.map((week, wi) =>
+          React.createElement('div', {
+            key:'avail-'+wi,
+            style:{ display:'grid',gridTemplateColumns:'repeat(7, 1fr)',gap:1,marginBottom: wi<weeks.length-1?1:0 }
+          },
+            week.map((date, di) => {
+              const ds = fmtDate(date);
+              const avail = availableByDay[ds] || [];
+              const isToday = ds === today;
+              const isWeekend = di >= 5;
+              return React.createElement('div', {
+                key:'av-'+ds,
+                style:{ padding:'4px 6px',background:isToday?'#eff6ff':isWeekend?'#f8fafc':'#fff',borderRight:di<6?'1px solid #e5e7eb':'none',borderBottom:'1px solid #e5e7eb',minHeight:28 }
+              },
+                wi === 0 && React.createElement('div', { style:{ fontSize:10,fontWeight:700,color:'#94a3b8',marginBottom:2,textTransform:'uppercase',letterSpacing:'0.05em' }},
+                  date.getDate()===1 ? `${['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][date.getMonth()]} ${date.getDate()}` : `${['Mon','Tue','Wed','Thu','Fri','Sat','Sun'][di]} ${date.getDate()}`
+                ),
+                wi > 0 && React.createElement('div', { style:{ fontSize:10,fontWeight:600,color:'#94a3b8',marginBottom:2 }},
+                  date.getDate()===1 ? `${['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][date.getMonth()]} ${date.getDate()}` : date.getDate()
+                ),
+                avail.length === 0
+                  ? React.createElement('div', { style:{ fontSize:10,color:'#d1d5db',fontStyle:'italic' }}, 'None')
+                  : React.createElement('div', { style:{ display:'flex',flexDirection:'column',gap:0 }},
+                      avail.map(emp =>
+                        React.createElement('div', { key:emp, style:{ fontSize:10,color:'#16a34a',fontWeight:500,lineHeight:1.5,whiteSpace:'nowrap',overflow:'hidden',textOverflow:'ellipsis' }}, emp)
+                      )
+                    ),
+                avail.length > 0 && React.createElement('div', { style:{ fontSize:9,fontWeight:700,color:'#16a34a',marginTop:2,background:'#dcfce7',padding:'1px 4px',borderRadius:3,display:'inline-block' }}, `${avail.length} avail.`)
+              );
+            })
+          )
+        )
+      )
+    ),
+
+        /* ── Overbooking warnings ── */
     (Object.keys(overbookedEmps).length > 0 || Object.keys(overbookedEquip).length > 0) && React.createElement('div', {
       style:{ padding:'8px 16px',background:'#fef2f2',borderTop:'2px solid #fca5a5',display:'flex',alignItems:'flex-start',gap:10,flexShrink:0,overflow:'auto',maxHeight:140 }
     },
