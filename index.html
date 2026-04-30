@@ -608,7 +608,7 @@ function App() {
   const [syncStatus, setSyncStatus] = useState(api.isConnected() ? 'saving' : 'offline');
 
   const [baseDate, setBaseDate] = useState(getMonday(new Date()));
-  const [numWeeks, setNumWeeks] = useState(4);
+  const [numWeeks, setNumWeeks] = useState(1);
   const [showProjectModal, setShowProjectModal] = useState(false);
   const [editProject, setEditProject] = useState(null);
   const [showImport, setShowImport] = useState(false);
