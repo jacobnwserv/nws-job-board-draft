@@ -111,6 +111,14 @@ const api = {
       body: JSON.stringify({ action: 'importProjects', projects })
     });
     return res.json();
+  },
+
+  async updateProjectOrder(orderMap) {
+    const res = await fetch(APPS_SCRIPT_URL, {
+      method: 'POST',
+      body: JSON.stringify({ action: 'updateProjectOrder', orderMap })
+    });
+    return res.json();
   }
 };
 
@@ -635,7 +643,9 @@ function App() {
         try {
           const data = await api.getAll();
           if (data.success) {
-            setProjects(data.projects);
+            const sorted = [...data.projects].sort((a,b) => (a.sortOrder||0) - (b.sortOrder||0));
+            setProjects(sorted);
+            setProjectOrder(sorted.map(p => p.id));
             setEmployees(data.employees);
             setEquipment(data.equipment || []);
             setNextId(data.nextId);
@@ -666,7 +676,9 @@ function App() {
       try {
         const data = await api.getAll();
         if (data.success) {
-          setProjects(data.projects);
+          const sorted = [...data.projects].sort((a,b) => (a.sortOrder||0) - (b.sortOrder||0));
+          setProjects(sorted);
+          setProjectOrder(sorted.map(p => p.id));
           setEmployees(data.employees);
           setEquipment(data.equipment || []);
           setNextId(data.nextId);
@@ -728,7 +740,8 @@ function App() {
         catch { setSyncStatus('error'); }
       }
     } else {
-      // Create new
+      // Create new — assign sortOrder at the end
+      data.sortOrder = projectOrder.length;
       const newProject = { ...data, id: nextId };
       setProjects(prev => [...prev, newProject]);
       setNextId(prev => prev + 1);
@@ -1122,7 +1135,7 @@ function App() {
                 onDragStart:e=>{dragRef.current=p.id;e.dataTransfer.effectAllowed='move';e.currentTarget.style.opacity='0.5';},
                 onDragEnd:e=>{dragRef.current=null;e.currentTarget.style.opacity='1';},
                 onDragOver:e=>{e.preventDefault();e.dataTransfer.dropEffect='move';},
-                onDrop:e=>{e.preventDefault();const fromId=dragRef.current;if(fromId!=null&&fromId!==p.id){setProjectOrder(prev=>{const arr=[...prev];const fi=arr.indexOf(fromId),ti=arr.indexOf(p.id);if(fi<0||ti<0)return prev;arr.splice(fi,1);arr.splice(ti,0,fromId);return arr;});}},
+                onDrop:e=>{e.preventDefault();const fromId=dragRef.current;if(fromId!=null&&fromId!==p.id){setProjectOrder(prev=>{const arr=[...prev];const fi=arr.indexOf(fromId),ti=arr.indexOf(p.id);if(fi<0||ti<0)return prev;arr.splice(fi,1);arr.splice(ti,0,fromId);if(api.isConnected()){const orderMap={};arr.forEach((id,i)=>orderMap[id]=i);setSyncStatus('saving');api.updateProjectOrder(orderMap).then(()=>setSyncStatus('saved')).catch(()=>setSyncStatus('error'));}return arr;});}},
                 onClick:e=>{e.stopPropagation();setEditProject(p);setShowProjectModal(true);},
                 onContextMenu:e=>{e.preventDefault();e.stopPropagation();setQuickEdit({project:p,position:{x:e.clientX,y:e.clientY},field:viewMode});},
                 onMouseEnter:()=>setHoveredProject(p.id), onMouseLeave:()=>setHoveredProject(null),
