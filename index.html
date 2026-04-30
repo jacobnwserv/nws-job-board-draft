@@ -613,7 +613,7 @@ function App() {
   const [showEquipment, setShowEquipment] = useState(false);
   const [quickEdit, setQuickEdit] = useState(null);
   const [hoveredProject, setHoveredProject] = useState(null);
-  const [viewMode, setViewMode] = useState('employees'); /* 'employees' or 'equipment' */
+  const [viewMode, setViewMode] = useState('employees'); /* 'employees', 'equipment', or 'byPerson' */
 
   /* ── Load data on mount ── */
   useEffect(() => {
@@ -897,7 +897,28 @@ function App() {
     return result;
   }, [days, projects, employees]);
 
-
+  /* ── By Person view: for each assigned employee, map their projects per day ── */
+  const byPersonData = useMemo(() => {
+    const empSet = new Set();
+    for (const p of projects) {
+      for (const day of days) {
+        const ds = fmtDate(day);
+        if (p.startDate <= ds && p.endDate >= ds) {
+          for (const emp of p.employees) empSet.add(emp);
+        }
+      }
+    }
+    const assignedEmps = [...empSet].sort((a,b) => a.localeCompare(b));
+    const grid = {};
+    for (const emp of assignedEmps) {
+      grid[emp] = {};
+      for (const day of days) {
+        const ds = fmtDate(day);
+        grid[emp][ds] = projects.filter(p => p.startDate <= ds && p.endDate >= ds && p.employees.includes(emp));
+      }
+    }
+    return { employees: assignedEmps, grid };
+  }, [days, projects]);
 
   const monthYearLabel = useMemo(() => {
     if (days.length === 0) return '';
@@ -947,7 +968,11 @@ function App() {
           React.createElement('button', {
             onClick:()=>setViewMode('equipment'),
             style:{ padding:'5px 12px',borderRadius:6,border:'none',background:viewMode==='equipment'?'#fff':'transparent',boxShadow:viewMode==='equipment'?'0 1px 2px rgba(0,0,0,0.08)':'none',cursor:'pointer',fontSize:12,fontWeight:viewMode==='equipment'?700:500,color:viewMode==='equipment'?'#ea580c':'#6b7280',transition:'all 0.15s',display:'flex',alignItems:'center',gap:4 }
-          }, '\ud83d\udee0\ufe0f Equipment')
+          }, '\ud83d\udee0\ufe0f Equipment'),
+          React.createElement('button', {
+            onClick:()=>setViewMode('byPerson'),
+            style:{ padding:'5px 12px',borderRadius:6,border:'none',background:viewMode==='byPerson'?'#fff':'transparent',boxShadow:viewMode==='byPerson'?'0 1px 2px rgba(0,0,0,0.08)':'none',cursor:'pointer',fontSize:12,fontWeight:viewMode==='byPerson'?700:500,color:viewMode==='byPerson'?'#7c3aed':'#6b7280',transition:'all 0.15s',display:'flex',alignItems:'center',gap:4 }
+          }, '\ud83d\udcc5 By Person')
         )
       ),
       React.createElement('div', { style:{ display:'flex',gap:8,alignItems:'center' }},
@@ -976,6 +1001,71 @@ function App() {
     ),
 
     /* ── Calendar Grid ── */
+    viewMode === 'byPerson' ?
+    /* ══ BY PERSON VIEW ══ */
+    React.createElement('div', { style:{ flex:1,overflow:'auto',padding:'12px' }},
+      React.createElement('div', { style:{ borderRadius:10,overflow:'hidden',border:'1px solid #e5e7eb' }},
+        /* Header + employee rows per week */
+        weeks.map((week, wi) =>
+          React.createElement('div', { key:'bp-week-'+wi },
+            /* Day header row */
+            React.createElement('div', {
+              style:{ display:'grid',gridTemplateColumns:'180px repeat(7, 1fr)',background: wi===0?'#f3f4f6':'#f9fafb',borderBottom:'1px solid #e5e7eb',borderTop: wi>0?'2px solid #d1d5db':'none' }
+            },
+              React.createElement('div', { style:{ padding:'8px 12px',fontWeight:700,fontSize:12,color:'#6b7280',textTransform:'uppercase',letterSpacing:'0.05em',borderRight:'1px solid #e5e7eb',display:'flex',alignItems:'center' }}, 'Employee'),
+              week.map((date, di) => {
+                const ds = fmtDate(date), isToday = ds === today;
+                return React.createElement('div', { key:'bph-'+ds, style:{ padding:'6px 8px',textAlign:'center',borderRight:di<6?'1px solid #e5e7eb':'none',background:isToday?'#eff6ff':'transparent' }},
+                  React.createElement('div', { style:{ fontSize:10,fontWeight:700,color: di>=5?'#94a3b8':'#6b7280',textTransform:'uppercase',letterSpacing:'0.05em' }}, ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'][di]),
+                  React.createElement('div', { style:{ fontSize:13,fontWeight:isToday?800:600,color:isToday?'#2563eb':'#374151' }},
+                    date.getDate()===1 ? `${['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][date.getMonth()]} ${date.getDate()}` : date.getDate()
+                  )
+                );
+              })
+            ),
+            /* Employee rows */
+            byPersonData.employees.map((emp, ei) =>
+              React.createElement('div', {
+                key:'bpr-'+emp+'-'+wi,
+                style:{ display:'grid',gridTemplateColumns:'180px repeat(7, 1fr)',borderBottom: ei<byPersonData.employees.length-1?'1px solid #f3f4f6':'none',minHeight:36 },
+                onMouseEnter:e=>e.currentTarget.style.background='#fafbfc', onMouseLeave:e=>e.currentTarget.style.background='transparent'
+              },
+                /* Employee name cell */
+                React.createElement('div', {
+                  style:{ padding:'4px 10px',borderRight:'1px solid #e5e7eb',display:'flex',alignItems:'center',fontSize:12,fontWeight:600,color: overbookedSet.has(emp)?'#dc2626':'#334155',background: overbookedSet.has(emp)?'#fef2f2':'transparent',whiteSpace:'nowrap',overflow:'hidden',textOverflow:'ellipsis' }
+                },
+                  wi === 0 ? emp : ''
+                ),
+                /* Day cells */
+                week.map((date, di) => {
+                  const ds = fmtDate(date);
+                  const isToday = ds === today;
+                  const projs = byPersonData.grid[emp]?.[ds] || [];
+                  return React.createElement('div', {
+                    key:'bpc-'+emp+'-'+ds,
+                    style:{ padding:'2px 3px',borderRight:di<6?'1px solid #f3f4f6':'none',background:isToday?'#eff6ff':'transparent',display:'flex',flexDirection:'column',gap:1,justifyContent:'center' }
+                  },
+                    projs.length === 0
+                      ? null
+                      : projs.map(p =>
+                          React.createElement('div', {
+                            key:p.id,
+                            onClick:e=>{e.stopPropagation();setEditProject(p);setShowProjectModal(true);},
+                            style:{ fontSize:10,fontWeight:600,color:p.color,background:p.color+'18',padding:'2px 5px',borderRadius:3,borderLeft:`2px solid ${p.color}`,cursor:'pointer',whiteSpace:'nowrap',overflow:'hidden',textOverflow:'ellipsis',lineHeight:1.4 },
+                            title:p.name,
+                            onMouseOver:e=>e.currentTarget.style.opacity='0.8', onMouseOut:e=>e.currentTarget.style.opacity='1'
+                          }, p.name)
+                        )
+                  );
+                })
+              )
+            )
+          )
+        )
+      )
+    )
+    :
+    /* ══ STANDARD CALENDAR VIEW ══ */
     React.createElement('div', { style:{ flex:1,overflow:'auto',padding:'12px',display:'flex',flexDirection:'column',gap:0 }},
       /* Day headers */
       React.createElement('div', {
