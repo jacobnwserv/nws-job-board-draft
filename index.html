@@ -18,18 +18,18 @@
 <script type="text/babel">
 const { useState, useRef, useEffect, useMemo, useCallback } = React;
 
-/* âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
-   CONFIGURATION â Paste your Google Apps Script Web App URL here
-   âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ */
+/* Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
+   CONFIGURATION Ã¢ÂÂ Paste your Google Apps Script Web App URL here
+   Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ */
 const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyn1urWIOAsxvOd84uZqOSmAtDczdlCF7EssaPb-XvSx8DyqGWwvMG3zq6MMxQRR1RfFg/exec';
 /* If left empty, the app runs in local/demo mode with sample data */
 
-/* âââ Color palette for projects âââ */
+/* Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ Color palette for projects Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ */
 const PROJECT_COLORS = [
   '#2563eb','#16a34a','#ca8a04','#dc2626','#db2777','#ea580c','#9333ea','#92400e'
 ];
 
-/* âââ Date helpers âââ */
+/* Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ Date helpers Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ */
 function getMonday(d) {
   const date = new Date(d);
   const day = date.getDay();
@@ -56,7 +56,7 @@ function parseDate(s) {
 
 const DAY_NAMES = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
 
-/* âââ Google Sheets API layer âââ */
+/* Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ Google Sheets API layer Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ */
 const api = {
   isConnected() { return !!APPS_SCRIPT_URL; },
 
@@ -122,7 +122,7 @@ const api = {
   }
 };
 
-/* âââ Demo data (used when no Google Sheet is connected) âââ */
+/* Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ Demo data (used when no Google Sheet is connected) Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ */
 function getDemoData() {
   return {
     employees: [
@@ -159,7 +159,7 @@ function getDemoData() {
   };
 }
 
-/* âââ Modal Component âââ */
+/* Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ Modal Component Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ */
 function Modal({ open, onClose, title, children, width }) {
   if (!open) return null;
   return React.createElement('div', {
@@ -185,7 +185,7 @@ function Modal({ open, onClose, title, children, width }) {
   );
 }
 
-/* âââ Chip for employee names âââ */
+/* Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ Chip for employee names Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ */
 function EmployeeChip({ name, removable, onRemove, color }) {
   return React.createElement('span', {
     style: { display:'inline-flex',alignItems:'center',gap:4,padding:'2px 8px',borderRadius:4,fontSize:12,fontWeight:500,background: color ? color+'18' : '#e5e7eb',color: color || '#374151',whiteSpace:'nowrap',lineHeight:1.4 }
@@ -200,12 +200,12 @@ function EmployeeChip({ name, removable, onRemove, color }) {
   );
 }
 
-/* âââ Saving indicator âââ */
+/* Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ Saving indicator Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ */
 function SyncBadge({ status }) {
   const styles = {
     saved: { bg:'#dcfce7', color:'#16a34a', text:'Saved to Google Sheets' },
     saving: { bg:'#fef9c3', color:'#ca8a04', text:'Saving...' },
-    error: { bg:'#fee2e2', color:'#dc2626', text:'Save failed â retrying' },
+    error: { bg:'#fee2e2', color:'#dc2626', text:'Save failed Ã¢ÂÂ retrying' },
     offline: { bg:'#f3f4f6', color:'#6b7280', text:'Local mode (no Google Sheet)' }
   };
   const s = styles[status] || styles.offline;
@@ -217,7 +217,7 @@ function SyncBadge({ status }) {
   );
 }
 
-/* âââ CSV Import Modal âââ */
+/* Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ CSV Import Modal Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ */
 function CSVImportModal({ open, onClose, onImport }) {
   const [preview, setPreview] = useState(null);
   const [mapping, setMapping] = useState({});
@@ -317,7 +317,7 @@ function CSVImportModal({ open, onClose, onImport }) {
   );
 }
 
-/* âââ Project Form Modal âââ */
+/* Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ Project Form Modal Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ */
 function ProjectFormModal({ open, onClose, onSave, onDelete, onSplit, project, allEmployees, allEquipment, usedColors }) {
   const isEdit = !!project;
   const [name, setName] = useState('');
@@ -421,7 +421,7 @@ function ProjectFormModal({ open, onClose, onSave, onDelete, onSplit, project, a
           )
         )
       ),
-      /* ââ Split Job Section ââ */
+      /* Ã¢ÂÂÃ¢ÂÂ Split Job Section Ã¢ÂÂÃ¢ÂÂ */
       canSplit && React.createElement('div', { style:{ borderTop:'1px solid #e5e7eb',paddingTop:12 }},
         !splitMode
           ? React.createElement('button', {
@@ -479,7 +479,7 @@ function ProjectFormModal({ open, onClose, onSave, onDelete, onSplit, project, a
   );
 }
 
-/* âââ Manage Employees Modal âââ */
+/* Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ Manage Employees Modal Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ */
 function ManageEmployeesModal({ open, onClose, employees, onUpdate }) {
   const [emps, setEmps] = useState([]);
   const [newName, setNewName] = useState('');
@@ -504,7 +504,7 @@ function ManageEmployeesModal({ open, onClose, employees, onUpdate }) {
   );
 }
 
-/* âââ Manage Equipment Modal âââ */
+/* Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ Manage Equipment Modal Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ */
 function ManageEquipmentModal({ open, onClose, equipment, onUpdate }) {
   const [equips, setEquips] = useState([]);
   const [newName, setNewName] = useState('');
@@ -529,7 +529,7 @@ function ManageEquipmentModal({ open, onClose, equipment, onUpdate }) {
   );
 }
 
-/* âââ Quick Edit Popup (works for both employees and equipment) âââ */
+/* Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ Quick Edit Popup (works for both employees and equipment) Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ */
 function QuickEditPopup({ project, position, allItems, field, onUpdate, onClose }) {
   const [search, setSearch] = useState('');
   const ref = useRef();
@@ -574,7 +574,7 @@ function QuickEditPopup({ project, position, allItems, field, onUpdate, onClose 
   );
 }
 
-/* âââ Setup Modal (shown when no Apps Script URL is configured) âââ */
+/* Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ Setup Modal (shown when no Apps Script URL is configured) Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ */
 function SetupBanner({ onDismiss }) {
   const [collapsed, setCollapsed] = useState(false);
   if (collapsed) return React.createElement('div', {
@@ -601,9 +601,9 @@ function SetupBanner({ onDismiss }) {
   );
 }
 
-/* âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+/* Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
    MAIN APP
-   âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ */
+   Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ */
 function App() {
   const [projects, setProjects] = useState([]);
   const [employees, setEmployees] = useState([]);
@@ -625,7 +625,7 @@ function App() {
   const [projectOrder, setProjectOrder] = useState([]); /* array of project IDs for display order */
   const dragRef = useRef(null); /* tracks which project ID is being dragged */
 
-  /* ââ Keep projectOrder in sync â add new projects, remove deleted ones ââ */
+  /* Ã¢ÂÂÃ¢ÂÂ Keep projectOrder in sync Ã¢ÂÂ add new projects, remove deleted ones Ã¢ÂÂÃ¢ÂÂ */
   useEffect(() => {
     setProjectOrder(prev => {
       const ids = new Set(projects.map(p => p.id));
@@ -636,7 +636,7 @@ function App() {
     });
   }, [projects]);
 
-  /* ââ Load data on mount ââ */
+  /* Ã¢ÂÂÃ¢ÂÂ Load data on mount Ã¢ÂÂÃ¢ÂÂ */
   useEffect(() => {
     async function load() {
       if (api.isConnected()) {
@@ -669,7 +669,7 @@ function App() {
     load();
   }, []);
 
-  /* ââ Auto-refresh from Google Sheets every 30 seconds ââ */
+  /* Ã¢ÂÂÃ¢ÂÂ Auto-refresh from Google Sheets every 30 seconds Ã¢ÂÂÃ¢ÂÂ */
   useEffect(() => {
     if (!api.isConnected()) return;
     const interval = setInterval(async () => {
@@ -695,7 +695,7 @@ function App() {
 
   function getProjectsForDay(date) { const ds=fmtDate(date); return projects.filter(p=>p.startDate<=ds&&p.endDate>=ds); }
 
-  /* ââ Compute spanning project segments for a week row ââ */
+  /* Ã¢ÂÂÃ¢ÂÂ Compute spanning project segments for a week row Ã¢ÂÂÃ¢ÂÂ */
   function getWeekSegments(weekDays) {
     const ws = fmtDate(weekDays[0]), we = fmtDate(weekDays[6]);
     const segs = [];
@@ -723,7 +723,7 @@ function App() {
     return { segments:segs, numLanes:lanes.length };
   }
 
-  /* ââ CRUD with Google Sheets sync ââ */
+  /* Ã¢ÂÂÃ¢ÂÂ CRUD with Google Sheets sync Ã¢ÂÂÃ¢ÂÂ */
   async function handleSaveProject(data) {
     if (!data.equipment) data.equipment = [];
     const newEmps = data.employees.filter(e => !employees.includes(e));
@@ -740,7 +740,7 @@ function App() {
         catch { setSyncStatus('error'); }
       }
     } else {
-      // Create new â assign sortOrder at the end
+      // Create new Ã¢ÂÂ assign sortOrder at the end
       data.sortOrder = projectOrder.length;
       const newProject = { ...data, id: nextId };
       setProjects(prev => [...prev, newProject]);
@@ -772,8 +772,11 @@ function App() {
        Part 1: original start \u2192 day before split date (keeps original crew)
        Part 2: split date \u2192 original end (keeps original crew, user edits after) */
     const dayBefore = fmtDate(addDays(new Date(splitDateStr+'T00:00:00'), -1));
-    const part1 = { name: project.name, startDate: project.startDate, endDate: dayBefore, color: project.color, employees: [...project.employees], equipment: [...(project.equipment||[])] };
-    const part2 = { name: project.name, startDate: splitDateStr, endDate: project.endDate, color: project.color, employees: [...project.employees], equipment: [...(project.equipment||[])] };
+    const cc = project.ccChecks || {};
+    const cc1 = {}, cc2 = {};
+    for (const [d,v] of Object.entries(cc)) { if (d <= dayBefore) cc1[d]=v; else cc2[d]=v; }
+    const part1 = { name: project.name, startDate: project.startDate, endDate: dayBefore, color: project.color, employees: [...project.employees], equipment: [...(project.equipment||[])], ccChecks: cc1 };
+    const part2 = { name: project.name, startDate: splitDateStr, endDate: project.endDate, color: project.color, employees: [...project.employees], equipment: [...(project.equipment||[])], ccChecks: cc2 };
 
     /* Remove original project */
     setProjects(prev => prev.filter(p => p.id !== project.id));
@@ -803,6 +806,22 @@ function App() {
       setEditProject(newPart2);
       setShowProjectModal(true);
     }, 300);
+  }
+
+  /* ── Toggle CC (CompanyCam) check for a project on a specific day ── */
+  async function handleToggleCC(projectId, dateStr) {
+    let updatedProject;
+    setProjects(prev => prev.map(p => {
+      if (p.id !== projectId) return p;
+      const ccChecks = { ...(p.ccChecks || {}), [dateStr]: !(p.ccChecks && p.ccChecks[dateStr]) };
+      updatedProject = { ...p, ccChecks };
+      return updatedProject;
+    }));
+    if (api.isConnected() && updatedProject) {
+      setSyncStatus('saving');
+      try { await api.updateProject(updatedProject); setSyncStatus('saved'); }
+      catch { setSyncStatus('error'); }
+    }
   }
 
   async function handleImportProjects(imported) {
@@ -853,7 +872,7 @@ function App() {
   const today = fmtDate(new Date());
   const usedColors = projects.map(p => p.color);
 
-  /* ââ Overbooking detection: find employees assigned to 2+ projects on the same day ââ */
+  /* Ã¢ÂÂÃ¢ÂÂ Overbooking detection: find employees assigned to 2+ projects on the same day Ã¢ÂÂÃ¢ÂÂ */
   const overbookedEmps = useMemo(() => {
     const empDayMap = {}; // { empName: { date: [projectName, ...] } }
     for (const p of projects) {
@@ -881,7 +900,7 @@ function App() {
 
   const overbookedSet = useMemo(() => new Set(Object.keys(overbookedEmps)), [overbookedEmps]);
 
-  /* ââ Equipment overbooking detection ââ */
+  /* Ã¢ÂÂÃ¢ÂÂ Equipment overbooking detection Ã¢ÂÂÃ¢ÂÂ */
   const overbookedEquip = useMemo(() => {
     const equipDayMap = {};
     for (const p of projects) {
@@ -909,7 +928,7 @@ function App() {
 
   const overbookedEquipSet = useMemo(() => new Set(Object.keys(overbookedEquip)), [overbookedEquip]);
 
-  /* ââ Available employees per day (unassigned to any project) ââ */
+  /* Ã¢ÂÂÃ¢ÂÂ Available employees per day (unassigned to any project) Ã¢ÂÂÃ¢ÂÂ */
   const [showAvailability, setShowAvailability] = useState(true);
 
   const availableByDay = useMemo(() => {
@@ -927,7 +946,7 @@ function App() {
     return result;
   }, [days, projects, employees]);
 
-  /* ââ By Person view: for each assigned employee, map their projects per day ââ */
+  /* Ã¢ÂÂÃ¢ÂÂ By Person view: for each assigned employee, map their projects per day Ã¢ÂÂÃ¢ÂÂ */
   const byPersonData = useMemo(() => {
     const empSet = new Set();
     for (const p of projects) {
@@ -961,13 +980,13 @@ function App() {
 
   if (loading) return React.createElement('div', { style:{ display:'flex',alignItems:'center',justifyContent:'center',height:'100vh',fontSize:16,color:'#6b7280' }}, 'Loading Job Board...');
 
-  /* âââ Render âââ */
+  /* Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ Render Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ */
   return React.createElement('div', { style:{ display:'flex',flexDirection:'column',height:'100vh',overflow:'hidden' }},
 
     /* Setup banner when not connected */
     !api.isConnected() && React.createElement(SetupBanner),
 
-    /* ââ Header ââ */
+    /* Ã¢ÂÂÃ¢ÂÂ Header Ã¢ÂÂÃ¢ÂÂ */
     React.createElement('div', {
       style:{ display:'flex',alignItems:'center',justifyContent:'space-between',padding:'12px 20px',background:'#fff',borderBottom:'1px solid #e5e7eb',boxShadow:'0 1px 3px rgba(0,0,0,0.05)',flexShrink:0 }
     },
@@ -1030,9 +1049,9 @@ function App() {
       )
     ),
 
-    /* ââ Calendar Grid ââ */
+    /* Ã¢ÂÂÃ¢ÂÂ Calendar Grid Ã¢ÂÂÃ¢ÂÂ */
     viewMode === 'byPerson' ?
-    /* ââ BY PERSON VIEW ââ */
+    /* Ã¢ÂÂÃ¢ÂÂ BY PERSON VIEW Ã¢ÂÂÃ¢ÂÂ */
     React.createElement('div', { style:{ flex:1,overflow:'auto',padding:'12px' }},
       React.createElement('div', { style:{ borderRadius:10,overflow:'hidden',border:'1px solid #e5e7eb' }},
         /* Header + employee rows per week */
@@ -1095,7 +1114,7 @@ function App() {
       )
     )
     :
-    /* ââ STANDARD CALENDAR VIEW ââ */
+    /* Ã¢ÂÂÃ¢ÂÂ STANDARD CALENDAR VIEW Ã¢ÂÂÃ¢ÂÂ */
     React.createElement('div', { style:{ flex:1,overflow:'auto',padding:'12px',display:'flex',flexDirection:'column',gap:0 }},
       /* Day headers */
       React.createElement('div', {
@@ -1103,21 +1122,21 @@ function App() {
       },
         DAY_NAMES.map((d,i) => React.createElement('div', { key:d, style:{ padding:'8px 10px',background: i>=5 ? '#f1f5f9':'#fff',textAlign:'center',fontSize:13,fontWeight:700,color: i>=5 ? '#94a3b8':'#374151',textTransform:'uppercase',letterSpacing:'0.05em' }}, d))
       ),
-      /* Week rows â projects span across days */
+      /* Week rows Ã¢ÂÂ projects span across days */
       weeks.map((week, wi) => {
         const { segments, numLanes } = getWeekSegments(week);
-        const totalRows = 1 + Math.max(numLanes, 1);
+        const totalRows = 2 + Math.max(numLanes, 1);
         return React.createElement('div', {
           key:wi,
-          style:{ display:'grid',gridTemplateColumns:'repeat(7, 1fr)',gridTemplateRows:`auto repeat(${Math.max(numLanes,1)}, auto)`,borderRadius: wi===numWeeks-1 ? '0 0 10px 10px':0,overflow:'hidden',flex:1,minHeight:0,borderTop:'1px solid #e5e7eb' }
+          style:{ display:'grid',gridTemplateColumns:'repeat(7, 1fr)',gridTemplateRows:`auto repeat(${Math.max(numLanes,1)}, auto) auto`,borderRadius: wi===numWeeks-1 ? '0 0 10px 10px':0,overflow:'hidden',flex:1,minHeight:0,borderTop:'1px solid #e5e7eb' }
         },
           [].concat(
-            /* Day background cells â span all rows */
+            /* Day background cells Ã¢ÂÂ span all rows */
             week.map((date, di) => {
               const ds=fmtDate(date), isToday=ds===today, isWeekend=di>=5;
               return React.createElement('div', { key:'bg-'+ds, style:{ gridColumn:di+1,gridRow:`1 / ${totalRows+1}`,background:isToday?'#eff6ff':isWeekend?'#f8fafc':'#fff',borderRight:di<6?'1px solid #e5e7eb':'none',borderLeft:isToday?'3px solid #2563eb':'none' }});
             }),
-            /* Date numbers â row 1 */
+            /* Date numbers Ã¢ÂÂ row 1 */
             week.map((date, di) => {
               const ds=fmtDate(date), isToday=ds===today;
               return React.createElement('div', { key:'d-'+ds, style:{ gridColumn:di+1,gridRow:1,padding:'4px 5px',zIndex:1 }},
@@ -1126,7 +1145,7 @@ function App() {
                 )
               );
             }),
-            /* Project spanning bars â rows 2+ */
+            /* Project spanning bars Ã¢ÂÂ rows 2+ */
             segments.map(seg => {
               const p=seg.project, fs=numWeeks<=2?10:9, nfs=numWeeks<=2?13:11;
               return React.createElement('div', {
@@ -1155,13 +1174,42 @@ function App() {
                   })
                 )
               );
+            }),
+            /* CC? checkboxes - bottom row of each day */
+            week.map((date, di) => {
+              const ds = fmtDate(date);
+              const dayProjs = projects.filter(p => p.startDate <= ds && p.endDate >= ds);
+              if (dayProjs.length === 0) return React.createElement('div', { key:'cc-'+ds, style:{ gridColumn:di+1, gridRow:totalRows, zIndex:1 }});
+              return React.createElement('div', {
+                key:'cc-'+ds,
+                style:{ gridColumn:di+1, gridRow:totalRows, display:'flex', flexDirection:'column', alignItems:'flex-end', justifyContent:'flex-end', padding:'1px 3px 2px', zIndex:1, gap:0 }
+              },
+                dayProjs.map(p => {
+                  const checked = (p.ccChecks && p.ccChecks[ds]) || false;
+                  return React.createElement('label', {
+                    key:'cc-'+p.id+'-'+ds,
+                    onClick: e => e.stopPropagation(),
+                    style:{ display:'flex', alignItems:'center', gap:2, cursor:'pointer', fontSize:8, fontWeight:700, lineHeight:1.2 },
+                    title: 'CompanyCam checklist ' + (checked ? 'confirmed' : 'not confirmed') + ' for ' + p.name
+                  },
+                    React.createElement('input', {
+                      type:'checkbox',
+                      checked: checked,
+                      onChange: e => { e.stopPropagation(); handleToggleCC(p.id, ds); },
+                      onClick: e => e.stopPropagation(),
+                      style:{ width:10, height:10, cursor:'pointer', accentColor: p.color, margin:0 }
+                    }),
+                    React.createElement('span', { style:{ color: p.color, whiteSpace:'nowrap', opacity: checked ? 1 : 0.5 }}, ' CC?')
+                  );
+                })
+              );
             })
           )
         );
       })
     ),
 
-/* ââ Available Employees by Day ââ */
+/* Ã¢ÂÂÃ¢ÂÂ Available Employees by Day Ã¢ÂÂÃ¢ÂÂ */
     React.createElement('div', {
       style:{ flexShrink:0,borderTop:'2px solid #d1d5db',background:'#f9fafb' }
     },
@@ -1177,7 +1225,7 @@ function App() {
           React.createElement('span', { style:{ fontSize:13,fontWeight:700,color:'#334155' }}, 'Available Employees'),
           React.createElement('span', { style:{ fontSize:11,fontWeight:500,color:'#94a3b8' }}, `(unassigned by day)`)
         ),
-        React.createElement('span', { style:{ fontSize:12,color:'#94a3b8',fontWeight:600,transition:'transform 0.2s',transform:showAvailability?'rotate(180deg)':'rotate(0deg)' }}, 'â¼')
+        React.createElement('span', { style:{ fontSize:12,color:'#94a3b8',fontWeight:600,transition:'transform 0.2s',transform:showAvailability?'rotate(180deg)':'rotate(0deg)' }}, 'Ã¢ÂÂ¼')
       ),
       /* Grid of available employees per day */
       showAvailability && React.createElement('div', {
@@ -1218,7 +1266,7 @@ function App() {
       )
     ),
 
-        /* ââ Overbooking warnings ââ */
+        /* Ã¢ÂÂÃ¢ÂÂ Overbooking warnings Ã¢ÂÂÃ¢ÂÂ */
     (Object.keys(overbookedEmps).length > 0 || Object.keys(overbookedEquip).length > 0) && React.createElement('div', {
       style:{ padding:'8px 16px',background:'#fef2f2',borderTop:'2px solid #fca5a5',display:'flex',alignItems:'flex-start',gap:10,flexShrink:0,overflow:'auto',maxHeight:140 }
     },
@@ -1251,7 +1299,7 @@ function App() {
       )
     ),
 
-    /* ââ Modals ââ */
+    /* Ã¢ÂÂÃ¢ÂÂ Modals Ã¢ÂÂÃ¢ÂÂ */
     React.createElement(ProjectFormModal, { open:showProjectModal, onClose:()=>{ setShowProjectModal(false); setEditProject(null); }, onSave:handleSaveProject, onDelete:handleDeleteProject, onSplit:handleSplitProject, project:editProject, allEmployees:employees, allEquipment:equipment, usedColors }),
     React.createElement(CSVImportModal, { open:showImport, onClose:()=>setShowImport(false), onImport:handleImportProjects }),
     React.createElement(ManageEmployeesModal, { open:showEmployees, onClose:()=>setShowEmployees(false), employees, onUpdate:handleUpdateEmployees }),
