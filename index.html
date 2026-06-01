@@ -119,6 +119,20 @@ const api = {
       body: JSON.stringify({ action: 'updateProjectOrder', orderMap })
     });
     return res.json();
+  },
+
+  async logActivity(entry) {
+    try {
+      await fetch(APPS_SCRIPT_URL, {
+        method: 'POST',
+        body: JSON.stringify({ action: 'logActivity', data: entry })
+      });
+    } catch {}
+  },
+
+  async getActivity() {
+    const res = await fetch(APPS_SCRIPT_URL + '?action=getActivity');
+    return res.json();
   }
 };
 
@@ -604,6 +618,137 @@ function SetupBanner({ onDismiss }) {
 /* ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ
    MAIN APP
    ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ */
+/* ─── User Picker Modal ─── */
+function UserPickerModal({ open, onSelect, allUsers }) {
+  const [selected, setSelected] = useState('');
+  const [custom, setCustom] = useState('');
+  const finalName = selected === '__custom__' ? custom.trim() : selected;
+  if (!open) return null;
+  return React.createElement(Modal, { open, onClose:()=>{}, title:'Who are you?', width:380 },
+    React.createElement('div', { style:{ display:'flex',flexDirection:'column',gap:12 }},
+      React.createElement('p', { style:{ fontSize:13,color:'#64748b',margin:0 }}, 'Select your name so we can track activity on the Job Board.'),
+      React.createElement('select', {
+        value: selected,
+        onChange: e => { setSelected(e.target.value); if (e.target.value !== '__custom__') setCustom(''); },
+        style:{ padding:'10px 12px',borderRadius:8,border:'1px solid #d1d5db',fontSize:14,width:'100%',outline:'none',cursor:'pointer' }
+      },
+        React.createElement('option', { value:'' }, '-- Select your name --'),
+        allUsers.map(u => React.createElement('option', { key:u, value:u }, u)),
+        React.createElement('option', { value:'__custom__' }, 'Other (type my name)...')
+      ),
+      selected === '__custom__' && React.createElement('input', {
+        type:'text', value:custom, onChange:e=>setCustom(e.target.value), placeholder:'Type your name...',
+        style:{ padding:'10px 12px',borderRadius:8,border:'1px solid #d1d5db',fontSize:14,width:'100%',outline:'none' },
+        autoFocus: true
+      }),
+      React.createElement('button', {
+        onClick:() => { if (finalName) onSelect(finalName); },
+        disabled: !finalName,
+        style:{ padding:'10px',borderRadius:8,border:'none',background: finalName ? '#2563eb':'#94a3b8',color:'#fff',fontWeight:600,fontSize:14,cursor: finalName ? 'pointer':'not-allowed' }
+      }, 'Continue')
+    )
+  );
+}
+
+/* ─── Activity Dashboard Modal ─── */
+function ActivityDashboard({ open, onClose }) {
+  const [activity, setActivity] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [tab, setTab] = useState('daily');
+
+  useEffect(() => {
+    if (open && !activity) {
+      setLoading(true);
+      api.getActivity().then(data => { setActivity(data.activity || []); setLoading(false); }).catch(() => { setActivity([]); setLoading(false); });
+    }
+  }, [open]);
+
+  if (!open) return null;
+
+  const dailySummary = useMemo(() => {
+    if (!activity) return [];
+    const byDay = {};
+    for (const a of activity) {
+      const day = a.timestamp ? a.timestamp.substring(0, 10) : 'unknown';
+      if (!byDay[day]) byDay[day] = { date: day, users: new Set(), actions: 0 };
+      byDay[day].users.add(a.user);
+      byDay[day].actions++;
+    }
+    return Object.values(byDay).sort((a,b) => b.date.localeCompare(a.date)).slice(0, 30).map(d => ({ ...d, users: [...d.users] }));
+  }, [activity]);
+
+  const userTotals = useMemo(() => {
+    if (!activity) return [];
+    const cutoff = fmtDate(addDays(new Date(), -14));
+    const recent = activity.filter(a => a.timestamp && a.timestamp >= cutoff);
+    const counts = {};
+    for (const a of recent) {
+      if (!counts[a.user]) counts[a.user] = { user: a.user, days: new Set(), actions: 0, lastSeen: '' };
+      counts[a.user].days.add(a.timestamp.substring(0, 10));
+      counts[a.user].actions++;
+      if (a.timestamp > counts[a.user].lastSeen) counts[a.user].lastSeen = a.timestamp;
+    }
+    return Object.values(counts).sort((a,b) => b.actions - a.actions).map(u => ({ ...u, days: u.days.size }));
+  }, [activity]);
+
+  const tabBtn = (id, label) => React.createElement('button', {
+    onClick:()=>setTab(id),
+    style:{ padding:'6px 14px',borderRadius:6,border:'none',background:tab===id?'#fff':'transparent',boxShadow:tab===id?'0 1px 2px rgba(0,0,0,0.08)':'none',cursor:'pointer',fontSize:12,fontWeight:tab===id?700:500,color:tab===id?'#2563eb':'#6b7280' }
+  }, label);
+
+  const actionLabels = { board_open:'Opened board', project_create:'Created project', project_edit:'Edited project', project_delete:'Deleted project', project_split:'Split project', cc_toggle:'CC check' };
+
+  return React.createElement(Modal, { open, onClose, title:'Usage Dashboard', width:600 },
+    React.createElement('div', { style:{ display:'flex',flexDirection:'column',gap:12 }},
+      React.createElement('div', { style:{ display:'flex',gap:2,background:'#f3f4f6',borderRadius:8,padding:2,alignSelf:'flex-start' }}, tabBtn('daily','PM Activity'), tabBtn('feed','Recent Actions')),
+      loading && React.createElement('div', { style:{ textAlign:'center',padding:20,color:'#6b7280',fontSize:13 }}, 'Loading activity data...'),
+      !loading && tab === 'daily' && React.createElement('div', {},
+        React.createElement('p', { style:{ fontSize:12,color:'#6b7280',margin:'0 0 8px' }}, 'Last 14 days:'),
+        userTotals.length === 0 ? React.createElement('p', { style:{ fontSize:13,color:'#94a3b8',textAlign:'center',padding:16 }}, 'No activity recorded yet.') :
+        React.createElement('table', { style:{ width:'100%',borderCollapse:'collapse',fontSize:13 }},
+          React.createElement('thead', {},
+            React.createElement('tr', { style:{ borderBottom:'2px solid #e5e7eb',textAlign:'left' }},
+              React.createElement('th', { style:{ padding:'8px 10px',fontWeight:600 }}, 'Name'),
+              React.createElement('th', { style:{ padding:'8px 10px',fontWeight:600,textAlign:'center' }}, 'Days Active'),
+              React.createElement('th', { style:{ padding:'8px 10px',fontWeight:600,textAlign:'center' }}, 'Actions'),
+              React.createElement('th', { style:{ padding:'8px 10px',fontWeight:600 }}, 'Last Seen')
+            )
+          ),
+          React.createElement('tbody', {},
+            userTotals.map(u => React.createElement('tr', { key:u.user, style:{ borderBottom:'1px solid #f1f5f9' }},
+              React.createElement('td', { style:{ padding:'8px 10px',fontWeight:600,color:'#1e293b' }}, u.user),
+              React.createElement('td', { style:{ padding:'8px 10px',textAlign:'center',color: u.days >= 10 ? '#16a34a' : u.days >= 5 ? '#ca8a04' : '#dc2626',fontWeight:700 }}, u.days + '/14'),
+              React.createElement('td', { style:{ padding:'8px 10px',textAlign:'center',color:'#64748b' }}, u.actions),
+              React.createElement('td', { style:{ padding:'8px 10px',color:'#64748b',fontSize:12 }}, u.lastSeen ? new Date(u.lastSeen).toLocaleDateString('en-US',{month:'short',day:'numeric',hour:'numeric',minute:'2-digit'}) : '-')
+            ))
+          )
+        ),
+        dailySummary.length > 0 && React.createElement('div', { style:{ marginTop:16 }},
+          React.createElement('p', { style:{ fontSize:12,color:'#6b7280',margin:'0 0 8px',fontWeight:600 }}, 'Daily breakdown:'),
+          React.createElement('div', { style:{ maxHeight:200,overflow:'auto' }},
+            dailySummary.map(d => React.createElement('div', { key:d.date, style:{ display:'flex',justifyContent:'space-between',alignItems:'center',padding:'6px 10px',borderBottom:'1px solid #f1f5f9',fontSize:12 }},
+              React.createElement('span', { style:{ fontWeight:600,color:'#374151' }}, new Date(d.date+'T12:00:00').toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'})),
+              React.createElement('span', { style:{ color:'#64748b' }}, d.users.join(', ')),
+              React.createElement('span', { style:{ color:'#94a3b8',fontSize:11 }}, d.actions + ' actions')
+            ))
+          )
+        )
+      ),
+      !loading && tab === 'feed' && React.createElement('div', { style:{ maxHeight:400,overflow:'auto' }},
+        (!activity || activity.length === 0) ? React.createElement('p', { style:{ fontSize:13,color:'#94a3b8',textAlign:'center',padding:16 }}, 'No activity recorded yet.') :
+        activity.slice(0, 100).map((a, i) => React.createElement('div', { key:i, style:{ display:'flex',alignItems:'flex-start',gap:8,padding:'8px 10px',borderBottom:'1px solid #f1f5f9',fontSize:12 }},
+          React.createElement('div', { style:{ flex:1,minWidth:0 }},
+            React.createElement('span', { style:{ fontWeight:600,color:'#1e293b' }}, a.user || 'Unknown'),
+            React.createElement('span', { style:{ color:'#64748b' }}, ' ' + (actionLabels[a.action] || a.action)),
+            a.details && React.createElement('span', { style:{ color:'#94a3b8' }}, ' \u2014 ' + a.details)
+          ),
+          React.createElement('span', { style:{ fontSize:11,color:'#94a3b8',whiteSpace:'nowrap',flexShrink:0 }}, a.timestamp ? new Date(a.timestamp).toLocaleDateString('en-US',{month:'short',day:'numeric',hour:'numeric',minute:'2-digit'}) : '')
+        ))
+      )
+    )
+  );
+}
+
 function App() {
   const [projects, setProjects] = useState([]);
   const [employees, setEmployees] = useState([]);
@@ -619,6 +764,24 @@ function App() {
   const [showImport, setShowImport] = useState(false);
   const [showEmployees, setShowEmployees] = useState(false);
   const [showEquipment, setShowEquipment] = useState(false);
+  const [showDashboard, setShowDashboard] = useState(false);
+
+  const [currentUser, setCurrentUser] = useState(() => {
+    try { return localStorage.getItem('jobboard_user') || ''; } catch { return ''; }
+  });
+  const [showUserPicker, setShowUserPicker] = useState(false);
+
+  function selectUser(name) {
+    setCurrentUser(name);
+    try { localStorage.setItem('jobboard_user', name); } catch {}
+    setShowUserPicker(false);
+    if (api.isConnected()) api.logActivity({ user: name, action: 'board_open', details: '', timestamp: new Date().toISOString() });
+  }
+
+  function logAction(action, details) {
+    if (!api.isConnected() || !currentUser) return;
+    api.logActivity({ user: currentUser, action, details: details || '', timestamp: new Date().toISOString() });
+  }
   const [quickEdit, setQuickEdit] = useState(null);
   const [hoveredProject, setHoveredProject] = useState(null);
   const [viewMode, setViewMode] = useState('employees'); /* 'employees', 'equipment', or 'byPerson' */
@@ -670,7 +833,15 @@ function App() {
   }, []);
 
   /* ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ Auto-refresh from Google Sheets every 30 seconds ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ */
+  /* Show user picker if no user identified; log board open for returning users */
   useEffect(() => {
+    if (!loading) {
+      if (!currentUser) { setShowUserPicker(true); }
+      else if (api.isConnected()) { api.logActivity({ user: currentUser, action: 'board_open', details: '', timestamp: new Date().toISOString() }); }
+    }
+  }, [loading]);
+
+    useEffect(() => {
     if (!api.isConnected()) return;
     const interval = setInterval(async () => {
       try {
@@ -734,6 +905,7 @@ function App() {
     if (data.id) {
       // Update existing
       setProjects(prev => prev.map(p => p.id === data.id ? { ...p, ...data } : p));
+      logAction('project_edit', data.name);
       if (api.isConnected()) {
         setSyncStatus('saving');
         try { await api.updateProject(data); setSyncStatus('saved'); }
@@ -745,6 +917,7 @@ function App() {
       const newProject = { ...data, id: nextId };
       setProjects(prev => [...prev, newProject]);
       setNextId(prev => prev + 1);
+      logAction('project_create', data.name);
       if (api.isConnected()) {
         setSyncStatus('saving');
         try {
@@ -759,7 +932,9 @@ function App() {
   }
 
   async function handleDeleteProject(id) {
+    const delName = projects.find(p => p.id === id)?.name || '';
     setProjects(prev => prev.filter(p => p.id !== id));
+    logAction('project_delete', delName);
     if (api.isConnected()) {
       setSyncStatus('saving');
       try { await api.deleteProject(id); setSyncStatus('saved'); }
@@ -768,6 +943,7 @@ function App() {
   }
 
   async function handleSplitProject(project, splitDateStr) {
+    logAction('project_split', project.name + ' at ' + splitDateStr);
     /* Split a project into two parts at splitDateStr.
        Part 1: original start \u2192 day before split date (keeps original crew)
        Part 2: split date \u2192 original end (keeps original crew, user edits after) */
@@ -810,6 +986,8 @@ function App() {
 
   /* ââ Toggle CC (CompanyCam) check for a project on a specific day ââ */
   async function handleToggleCC(projectId, dateStr) {
+    const ccProject = projects.find(p => p.id === projectId);
+    logAction('cc_toggle', (ccProject?.name || '') + ' on ' + dateStr);
     let updatedProject;
     setProjects(prev => prev.map(p => {
       if (p.id !== projectId) return p;
@@ -1031,6 +1209,20 @@ function App() {
         )
       ),
       React.createElement('div', { style:{ display:'flex',gap:8,alignItems:'center' }},
+        currentUser && React.createElement('div', {
+          onClick:()=>setShowUserPicker(true),
+          style:{ display:'flex',alignItems:'center',gap:6,padding:'6px 12px',borderRadius:8,background:'#f0fdf4',border:'1px solid #bbf7d0',cursor:'pointer',fontSize:12,fontWeight:600,color:'#166534' },
+          title:'Click to switch user'
+        },
+          React.createElement('span', { style:{ fontSize:14 }}, '\ud83d\udc64'),
+          currentUser
+        ),
+        React.createElement('button', {
+          onClick:()=>setShowDashboard(true),
+          style:{ padding:'8px 14px',borderRadius:8,border:'1px solid #c4b5fd',background:'#faf5ff',color:'#7c3aed',fontWeight:600,fontSize:13,cursor:'pointer',display:'flex',alignItems:'center',gap:4 },
+          onMouseOver:e=>e.currentTarget.style.background='#f3e8ff', onMouseOut:e=>e.currentTarget.style.background='#faf5ff',
+          title:'View usage activity'
+        }, '\ud83d\udcca Activity'),
         React.createElement(SyncBadge, { status: syncStatus }),
         React.createElement('button', {
           onClick:()=>setShowEmployees(true),
@@ -1313,6 +1505,9 @@ function App() {
     React.createElement(ManageEmployeesModal, { open:showEmployees, onClose:()=>setShowEmployees(false), employees, onUpdate:handleUpdateEmployees }),
     React.createElement(ManageEquipmentModal, { open:showEquipment, onClose:()=>setShowEquipment(false), equipment, onUpdate:handleUpdateEquipment }),
     quickEdit && React.createElement(QuickEditPopup, { project:quickEdit.project, position:quickEdit.position, allItems:quickEdit.field==='equipment'?equipment:employees, field:quickEdit.field==='equipment'?'equipment':'employees', onUpdate:handleQuickUpdate, onClose:()=>setQuickEdit(null) }),
+
+    React.createElement(UserPickerModal, { open:showUserPicker, onSelect:selectUser, allUsers:employees }),
+    React.createElement(ActivityDashboard, { open:showDashboard, onClose:()=>setShowDashboard(false) }),
 
     React.createElement('style', {}, `
       @keyframes slideUp { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
