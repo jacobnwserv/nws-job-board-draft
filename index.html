@@ -663,8 +663,6 @@ function ActivityDashboard({ open, onClose }) {
     }
   }, [open]);
 
-  if (!open) return null;
-
   const dailySummary = useMemo(() => {
     if (!activity) return [];
     const byDay = {};
@@ -690,6 +688,8 @@ function ActivityDashboard({ open, onClose }) {
     }
     return Object.values(counts).sort((a,b) => b.actions - a.actions).map(u => ({ ...u, days: u.days.size }));
   }, [activity]);
+
+  if (!open) return null;
 
   const tabBtn = (id, label) => React.createElement('button', {
     onClick:()=>setTab(id),
