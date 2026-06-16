@@ -28,6 +28,10 @@ const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyn1urWIOAsxvOd
 const PROJECT_COLORS = [
   '#2563eb','#16a34a','#ca8a04','#dc2626','#db2777','#ea580c','#9333ea','#92400e'
 ];
+const COLOR_NAMES = {
+  '#2563eb':'Cooper','#16a34a':'JD','#ca8a04':'Mike','#dc2626':'Hunter',
+  '#db2777':'Kent','#ea580c':'Jacob','#9333ea':'JB','#92400e':'Tentative'
+};
 
 /* ─── Date helpers ─── */
 function getMonday(d) {
@@ -387,8 +391,11 @@ function ProjectFormModal({ open, onClose, onSave, onDelete, onSplit, project, a
       ),
       React.createElement('div', {},
         React.createElement('label', { style:{ fontSize:12,fontWeight:600,color:'#374151',marginBottom:6,display:'block' }}, 'Color'),
-        React.createElement('div', { style:{ display:'flex',gap:6,flexWrap:'wrap' }},
-          PROJECT_COLORS.map(c => React.createElement('div', { key:c, onClick:()=>setColor(c), style:{ width:28,height:28,borderRadius:6,background:c,cursor:'pointer',border: color===c ? '3px solid #1e293b' : '3px solid transparent' }}))
+        React.createElement('div', { style:{ display:'flex',gap:8,flexWrap:'wrap' }},
+          PROJECT_COLORS.map(c => React.createElement('div', { key:c, onClick:()=>setColor(c), style:{ display:'flex',flexDirection:'column',alignItems:'center',gap:2,cursor:'pointer' }},
+            React.createElement('div', { style:{ width:28,height:28,borderRadius:6,background:c,border: color===c ? '3px solid #1e293b' : '3px solid transparent' }}),
+            React.createElement('span', { style:{ fontSize:9,fontWeight:600,color: color===c ? '#1e293b' : '#6b7280',lineHeight:1,whiteSpace:'nowrap' }}, COLOR_NAMES[c] || '')
+          ))
         )
       ),
       React.createElement('div', {},
@@ -435,7 +442,7 @@ function ProjectFormModal({ open, onClose, onSave, onDelete, onSplit, project, a
           )
         )
       ),
-      /* ── Split Job Section ── */
+      /* ─┈ Split Job Section ── */
       canSplit && React.createElement('div', { style:{ borderTop:'1px solid #e5e7eb',paddingTop:12 }},
         !splitMode
           ? React.createElement('button', {
@@ -810,7 +817,7 @@ function App() {
     });
   }, [projects]);
 
-  /* ── Load data on mount ── */
+  /* ─┈ Load data on mount ── */
   useEffect(() => {
     async function load() {
       if (api.isConnected()) {
@@ -851,7 +858,7 @@ function App() {
     }
   }, [loading]);
 
-  /* ── Auto-refresh from Google Sheets every 30 seconds ── */
+  /* ─┈ Auto-refresh from Google Sheets every 30 seconds ── */
   useEffect(() => {
     if (!api.isConnected()) return;
     const interval = setInterval(async () => {
@@ -877,7 +884,7 @@ function App() {
 
   function getProjectsForDay(date) { const ds=fmtDate(date); return projects.filter(p=>p.startDate<=ds&&p.endDate>=ds); }
 
-  /* ── Compute spanning project segments for a week row ── */
+  /* ─┈ Compute spanning project segments for a week row ── */
   function getWeekSegments(weekDays) {
     const ws = fmtDate(weekDays[0]), we = fmtDate(weekDays[6]);
     const segs = [];
@@ -995,7 +1002,7 @@ function App() {
     }, 300);
   }
 
-  /* ── Toggle CC (CompanyCam) check for a project on a specific day ── */
+  /* ─┈ Toggle CC (CompanyCam) check for a project on a specific day ── */
   async function handleToggleCC(projectId, dateStr) {
     const ccProject = projects.find(p => p.id === projectId);
     logAction('cc_toggle', (ccProject?.name || '') + ' on ' + dateStr);
@@ -1061,7 +1068,7 @@ function App() {
   const today = fmtDate(new Date());
   const usedColors = projects.map(p => p.color);
 
-  /* ── Overbooking detection: find employees assigned to 2+ projects on the same day (visible weeks only) ── */
+  /* ─┈ Overbooking detection: find employees assigned to 2+ projects on the same day (visible weeks only) ── */
   const overbookedEmps = useMemo(() => {
     const empDayMap = {}; // { empName: { date: [projectName, ...] } }
     const visStart = days.length > 0 ? fmtDate(days[0]) : '';
@@ -1123,7 +1130,7 @@ function App() {
 
   const overbookedEquipSet = useMemo(() => new Set(Object.keys(overbookedEquip)), [overbookedEquip]);
 
-  /* ── Available employees per day (unassigned to any project) ── */
+  /* ─┈ Available employees per day (unassigned to any project) ── */
   const [showAvailability, setShowAvailability] = useState(true);
 
   const availableByDay = useMemo(() => {
@@ -1308,7 +1315,7 @@ function App() {
                 /* Day cells showing project assignments */
                 week.map((date, di) => {
                   const ds = fmtDate(date);
-                     const isToday = ds === today;
+                  const isToday = ds === today;
                   const projs = byPersonData.grid[emp]?.[ds] || [];
                   return React.createElement('div', {
                     key:'bpc-'+emp+'-'+ds,
@@ -1431,7 +1438,7 @@ function App() {
       })
     ),
 
-    /* ── Available Employees by Day ── */
+    /* ─┈ Available Employees by Day ── */
     React.createElement('div', {
       style:{ flexShrink:0,borderTop:'2px solid #d1d5db',background:'#f9fafb' }
     },
@@ -1521,7 +1528,7 @@ function App() {
       )
     ),
 
-    /* ── Modals ── */
+    /* ─┈ Modals ── */
     React.createElement(ProjectFormModal, { open:showProjectModal, onClose:()=>{ setShowProjectModal(false); setEditProject(null); }, onSave:handleSaveProject, onDelete:handleDeleteProject, onSplit:handleSplitProject, project:editProject, allEmployees:employees, allEquipment:equipment, usedColors }),
     React.createElement(CSVImportModal, { open:showImport, onClose:()=>setShowImport(false), onImport:handleImportProjects }),
     React.createElement(ManageEmployeesModal, { open:showEmployees, onClose:()=>setShowEmployees(false), employees, onUpdate:handleUpdateEmployees }),
