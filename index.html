@@ -18,18 +18,18 @@
 <script type="text/babel">
 const { useState, useRef, useEffect, useMemo, useCallback } = React;
 
-/* ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ
-   CONFIGURATION ÃÂ¢ÃÂÃÂ Paste your Google Apps Script Web App URL here
-   ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ */
+/* ═══════════════════════════════════════════════════════════════
+   CONFIGURATION — Paste your Google Apps Script Web App URL here
+   ═══════════════════════════════════════════════════════════════ */
 const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyn1urWIOAsxvOd84uZqOSmAtDczdlCF7EssaPb-XvSx8DyqGWwvMG3zq6MMxQRR1RfFg/exec';
 /* If left empty, the app runs in local/demo mode with sample data */
 
-/* ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ Color palette for projects ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ */
+/* ─── Color palette for projects ─── */
 const PROJECT_COLORS = [
   '#2563eb','#16a34a','#ca8a04','#dc2626','#db2777','#ea580c','#9333ea','#92400e'
 ];
 
-/* ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ Date helpers ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ */
+/* ─── Date helpers ─── */
 function getMonday(d) {
   const date = new Date(d);
   const day = date.getDay();
@@ -56,7 +56,7 @@ function parseDate(s) {
 
 const DAY_NAMES = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
 
-/* ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ Google Sheets API layer ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ */
+/* ─── Google Sheets API layer ─── */
 const api = {
   isConnected() { return !!APPS_SCRIPT_URL; },
 
@@ -127,7 +127,7 @@ const api = {
         method: 'POST',
         body: JSON.stringify({ action: 'logActivity', data: entry })
       });
-    } catch {}
+    } catch {} /* fire-and-forget — don't block the UI */
   },
 
   async getActivity() {
@@ -136,7 +136,7 @@ const api = {
   }
 };
 
-/* ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ Demo data (used when no Google Sheet is connected) ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ */
+/* ─── Demo data (used when no Google Sheet is connected) ─── */
 function getDemoData() {
   return {
     employees: [
@@ -173,7 +173,7 @@ function getDemoData() {
   };
 }
 
-/* ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ Modal Component ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ */
+/* ─── Modal Component ─── */
 function Modal({ open, onClose, title, children, width }) {
   if (!open) return null;
   return React.createElement('div', {
@@ -199,7 +199,7 @@ function Modal({ open, onClose, title, children, width }) {
   );
 }
 
-/* ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ Chip for employee names ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ */
+/* ─── Chip for employee names ─── */
 function EmployeeChip({ name, removable, onRemove, color }) {
   return React.createElement('span', {
     style: { display:'inline-flex',alignItems:'center',gap:4,padding:'2px 8px',borderRadius:4,fontSize:12,fontWeight:500,background: color ? color+'18' : '#e5e7eb',color: color || '#374151',whiteSpace:'nowrap',lineHeight:1.4 }
@@ -214,12 +214,12 @@ function EmployeeChip({ name, removable, onRemove, color }) {
   );
 }
 
-/* ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ Saving indicator ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ */
+/* ─── Saving indicator ─── */
 function SyncBadge({ status }) {
   const styles = {
     saved: { bg:'#dcfce7', color:'#16a34a', text:'Saved to Google Sheets' },
     saving: { bg:'#fef9c3', color:'#ca8a04', text:'Saving...' },
-    error: { bg:'#fee2e2', color:'#dc2626', text:'Save failed ÃÂ¢ÃÂÃÂ retrying' },
+    error: { bg:'#fee2e2', color:'#dc2626', text:'Save failed — retrying' },
     offline: { bg:'#f3f4f6', color:'#6b7280', text:'Local mode (no Google Sheet)' }
   };
   const s = styles[status] || styles.offline;
@@ -231,7 +231,7 @@ function SyncBadge({ status }) {
   );
 }
 
-/* ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ CSV Import Modal ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ */
+/* ─── CSV Import Modal ─── */
 function CSVImportModal({ open, onClose, onImport }) {
   const [preview, setPreview] = useState(null);
   const [mapping, setMapping] = useState({});
@@ -331,7 +331,7 @@ function CSVImportModal({ open, onClose, onImport }) {
   );
 }
 
-/* ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ Project Form Modal ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ */
+/* ─── Project Form Modal ─── */
 function ProjectFormModal({ open, onClose, onSave, onDelete, onSplit, project, allEmployees, allEquipment, usedColors }) {
   const isEdit = !!project;
   const [name, setName] = useState('');
@@ -435,7 +435,7 @@ function ProjectFormModal({ open, onClose, onSave, onDelete, onSplit, project, a
           )
         )
       ),
-      /* ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ Split Job Section ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ */
+      /* ── Split Job Section ── */
       canSplit && React.createElement('div', { style:{ borderTop:'1px solid #e5e7eb',paddingTop:12 }},
         !splitMode
           ? React.createElement('button', {
@@ -443,14 +443,14 @@ function ProjectFormModal({ open, onClose, onSave, onDelete, onSplit, project, a
               style:{ display:'flex',alignItems:'center',gap:6,padding:'8px 14px',borderRadius:8,border:'1px solid #d1d5db',background:'#fff',color:'#374151',fontWeight:600,fontSize:13,cursor:'pointer',width:'100%',justifyContent:'center' },
               onMouseOver:e=>e.currentTarget.style.background='#f9fafb', onMouseOut:e=>e.currentTarget.style.background='#fff'
             },
-              React.createElement('span', { style:{ fontSize:16 }}, '\u2702\uFE0F'),
+              React.createElement('span', { style:{ fontSize:16 }}, '✂️'),
               'Split Job at a Date'
             )
           : React.createElement('div', { style:{ background:'#fffbeb',border:'1px solid #fde68a',borderRadius:8,padding:12 }},
               React.createElement('div', { style:{ display:'flex',alignItems:'center',gap:6,marginBottom:8 }},
-                React.createElement('span', { style:{ fontSize:14 }}, '\u2702\uFE0F'),
+                React.createElement('span', { style:{ fontSize:14 }}, '✂️'),
                 React.createElement('span', { style:{ fontSize:13,fontWeight:700,color:'#92400e' }}, 'Split Job'),
-                React.createElement('span', { style:{ fontSize:12,color:'#b45309' }}, '\u2014 choose the date where Part 2 begins')
+                React.createElement('span', { style:{ fontSize:12,color:'#b45309' }}, '— choose the date where Part 2 begins')
               ),
               React.createElement('div', { style:{ display:'flex',alignItems:'center',gap:8,marginBottom:10 }},
                 React.createElement('div', { style:{ flex:1 }},
@@ -459,8 +459,8 @@ function ProjectFormModal({ open, onClose, onSave, onDelete, onSplit, project, a
                 )
               ),
               splitDate && React.createElement('div', { style:{ fontSize:12,color:'#78350f',marginBottom:10,lineHeight:1.5,background:'#fef3c7',padding:'8px 10px',borderRadius:6 }},
-                React.createElement('div', {}, React.createElement('strong', {}, 'Part 1: '), `${startDate} to ${fmtDate(addDays(new Date(splitDate+'T00:00:00'), -1))} \u2014 same crew`),
-                React.createElement('div', {}, React.createElement('strong', {}, 'Part 2: '), `${splitDate} to ${endDate} \u2014 edit crew after split`)
+                React.createElement('div', {}, React.createElement('strong', {}, 'Part 1: '), `${startDate} to ${fmtDate(addDays(new Date(splitDate+'T00:00:00'), -1))} — same crew`),
+                React.createElement('div', {}, React.createElement('strong', {}, 'Part 2: '), `${splitDate} to ${endDate} — edit crew after split`)
               ),
               React.createElement('div', { style:{ display:'flex',gap:8,justifyContent:'flex-end' }},
                 React.createElement('button', {
@@ -471,7 +471,7 @@ function ProjectFormModal({ open, onClose, onSave, onDelete, onSplit, project, a
                   onClick:()=>{ if(splitDate>=splitMin && splitDate<=splitMax) { onSplit(project, splitDate); onClose(); }},
                   disabled:!splitDate || splitDate<splitMin || splitDate>splitMax,
                   style:{ padding:'7px 14px',borderRadius:6,border:'none',background: splitDate&&splitDate>=splitMin&&splitDate<=splitMax ? '#d97706':'#d1d5db',color:'#fff',fontWeight:600,fontSize:12,cursor: splitDate&&splitDate>=splitMin&&splitDate<=splitMax ? 'pointer':'not-allowed' }
-                }, '\u2702\uFE0F Confirm Split')
+                }, '✂️ Confirm Split')
               )
             )
       ),
@@ -493,7 +493,7 @@ function ProjectFormModal({ open, onClose, onSave, onDelete, onSplit, project, a
   );
 }
 
-/* ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ Manage Employees Modal ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ */
+/* ─── Manage Employees Modal ─── */
 function ManageEmployeesModal({ open, onClose, employees, onUpdate }) {
   const [emps, setEmps] = useState([]);
   const [newName, setNewName] = useState('');
@@ -518,7 +518,7 @@ function ManageEmployeesModal({ open, onClose, employees, onUpdate }) {
   );
 }
 
-/* ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ Manage Equipment Modal ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ */
+/* ─── Manage Equipment Modal ─── */
 function ManageEquipmentModal({ open, onClose, equipment, onUpdate }) {
   const [equips, setEquips] = useState([]);
   const [newName, setNewName] = useState('');
@@ -543,7 +543,7 @@ function ManageEquipmentModal({ open, onClose, equipment, onUpdate }) {
   );
 }
 
-/* ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ Quick Edit Popup (works for both employees and equipment) ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ */
+/* ─── Quick Edit Popup (works for both employees and equipment) ─── */
 function QuickEditPopup({ project, position, allItems, field, onUpdate, onClose }) {
   const [search, setSearch] = useState('');
   const ref = useRef();
@@ -588,7 +588,7 @@ function QuickEditPopup({ project, position, allItems, field, onUpdate, onClose 
   );
 }
 
-/* ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ Setup Modal (shown when no Apps Script URL is configured) ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ */
+/* ─── Setup Modal (shown when no Apps Script URL is configured) ─── */
 function SetupBanner({ onDismiss }) {
   const [collapsed, setCollapsed] = useState(false);
   if (collapsed) return React.createElement('div', {
@@ -615,9 +615,6 @@ function SetupBanner({ onDismiss }) {
   );
 }
 
-/* ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ
-   MAIN APP
-   ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ */
 /* ─── User Picker Modal ─── */
 function UserPickerModal({ open, onSelect, allUsers }) {
   const [selected, setSelected] = useState('');
@@ -654,7 +651,7 @@ function UserPickerModal({ open, onSelect, allUsers }) {
 function ActivityDashboard({ open, onClose }) {
   const [activity, setActivity] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [tab, setTab] = useState('daily');
+  const [tab, setTab] = useState('daily'); /* 'daily' or 'feed' */
 
   useEffect(() => {
     if (open && !activity) {
@@ -663,6 +660,7 @@ function ActivityDashboard({ open, onClose }) {
     }
   }, [open]);
 
+  /* Build daily active summary from activity log */
   const dailySummary = useMemo(() => {
     if (!activity) return [];
     const byDay = {};
@@ -675,6 +673,7 @@ function ActivityDashboard({ open, onClose }) {
     return Object.values(byDay).sort((a,b) => b.date.localeCompare(a.date)).slice(0, 30).map(d => ({ ...d, users: [...d.users] }));
   }, [activity]);
 
+  /* User totals for the last 14 days */
   const userTotals = useMemo(() => {
     if (!activity) return [];
     const cutoff = fmtDate(addDays(new Date(), -14));
@@ -696,22 +695,25 @@ function ActivityDashboard({ open, onClose }) {
     style:{ padding:'6px 14px',borderRadius:6,border:'none',background:tab===id?'#fff':'transparent',boxShadow:tab===id?'0 1px 2px rgba(0,0,0,0.08)':'none',cursor:'pointer',fontSize:12,fontWeight:tab===id?700:500,color:tab===id?'#2563eb':'#6b7280' }
   }, label);
 
+  const actionIcons = { board_open:'📱', project_create:'➕', project_edit:'✏️', project_delete:'🗑️', project_split:'✂️', cc_toggle:'☑️' };
   const actionLabels = { board_open:'Opened board', project_create:'Created project', project_edit:'Edited project', project_delete:'Deleted project', project_split:'Split project', cc_toggle:'CC check' };
 
   return React.createElement(Modal, { open, onClose, title:'Usage Dashboard', width:600 },
     React.createElement('div', { style:{ display:'flex',flexDirection:'column',gap:12 }},
       React.createElement('div', { style:{ display:'flex',gap:2,background:'#f3f4f6',borderRadius:8,padding:2,alignSelf:'flex-start' }}, tabBtn('daily','PM Activity'), tabBtn('feed','Recent Actions')),
+
       loading && React.createElement('div', { style:{ textAlign:'center',padding:20,color:'#6b7280',fontSize:13 }}, 'Loading activity data...'),
+
       !loading && tab === 'daily' && React.createElement('div', {},
-        React.createElement('p', { style:{ fontSize:12,color:'#6b7280',margin:'0 0 8px' }}, 'Last 14 days:'),
-        userTotals.length === 0 ? React.createElement('p', { style:{ fontSize:13,color:'#94a3b8',textAlign:'center',padding:16 }}, 'No activity recorded yet.') :
+        React.createElement('p', { style:{ fontSize:12,color:'#6b7280',margin:'0 0 8px' }}, 'Last 14 days — who’s been active:'),
+        userTotals.length === 0 ? React.createElement('p', { style:{ fontSize:13,color:'#94a3b8',textAlign:'center',padding:16 }}, 'No activity recorded yet. Activity will appear once PMs start using the board.') :
         React.createElement('table', { style:{ width:'100%',borderCollapse:'collapse',fontSize:13 }},
           React.createElement('thead', {},
             React.createElement('tr', { style:{ borderBottom:'2px solid #e5e7eb',textAlign:'left' }},
-              React.createElement('th', { style:{ padding:'8px 10px',fontWeight:600 }}, 'Name'),
-              React.createElement('th', { style:{ padding:'8px 10px',fontWeight:600,textAlign:'center' }}, 'Days Active'),
-              React.createElement('th', { style:{ padding:'8px 10px',fontWeight:600,textAlign:'center' }}, 'Actions'),
-              React.createElement('th', { style:{ padding:'8px 10px',fontWeight:600 }}, 'Last Seen')
+              React.createElement('th', { style:{ padding:'8px 10px',fontWeight:600,color:'#374151' }}, 'Name'),
+              React.createElement('th', { style:{ padding:'8px 10px',fontWeight:600,color:'#374151',textAlign:'center' }}, 'Days Active'),
+              React.createElement('th', { style:{ padding:'8px 10px',fontWeight:600,color:'#374151',textAlign:'center' }}, 'Actions'),
+              React.createElement('th', { style:{ padding:'8px 10px',fontWeight:600,color:'#374151' }}, 'Last Seen')
             )
           ),
           React.createElement('tbody', {},
@@ -723,6 +725,7 @@ function ActivityDashboard({ open, onClose }) {
             ))
           )
         ),
+        /* Daily breakdown */
         dailySummary.length > 0 && React.createElement('div', { style:{ marginTop:16 }},
           React.createElement('p', { style:{ fontSize:12,color:'#6b7280',margin:'0 0 8px',fontWeight:600 }}, 'Daily breakdown:'),
           React.createElement('div', { style:{ maxHeight:200,overflow:'auto' }},
@@ -734,13 +737,15 @@ function ActivityDashboard({ open, onClose }) {
           )
         )
       ),
+
       !loading && tab === 'feed' && React.createElement('div', { style:{ maxHeight:400,overflow:'auto' }},
         (!activity || activity.length === 0) ? React.createElement('p', { style:{ fontSize:13,color:'#94a3b8',textAlign:'center',padding:16 }}, 'No activity recorded yet.') :
         activity.slice(0, 100).map((a, i) => React.createElement('div', { key:i, style:{ display:'flex',alignItems:'flex-start',gap:8,padding:'8px 10px',borderBottom:'1px solid #f1f5f9',fontSize:12 }},
+          React.createElement('span', { style:{ fontSize:14,flexShrink:0 }}, actionIcons[a.action] || '📌'),
           React.createElement('div', { style:{ flex:1,minWidth:0 }},
             React.createElement('span', { style:{ fontWeight:600,color:'#1e293b' }}, a.user || 'Unknown'),
             React.createElement('span', { style:{ color:'#64748b' }}, ' ' + (actionLabels[a.action] || a.action)),
-            a.details && React.createElement('span', { style:{ color:'#94a3b8' }}, ' \u2014 ' + a.details)
+            a.details && React.createElement('span', { style:{ color:'#94a3b8' }}, ' — ' + a.details),
           ),
           React.createElement('span', { style:{ fontSize:11,color:'#94a3b8',whiteSpace:'nowrap',flexShrink:0 }}, a.timestamp ? new Date(a.timestamp).toLocaleDateString('en-US',{month:'short',day:'numeric',hour:'numeric',minute:'2-digit'}) : '')
         ))
@@ -749,6 +754,9 @@ function ActivityDashboard({ open, onClose }) {
   );
 }
 
+/* ═══════════════════════════════════════════════════════════════
+   MAIN APP
+   ═══════════════════════════════════════════════════════════════ */
 function App() {
   const [projects, setProjects] = useState([]);
   const [employees, setEmployees] = useState([]);
@@ -766,6 +774,7 @@ function App() {
   const [showEquipment, setShowEquipment] = useState(false);
   const [showDashboard, setShowDashboard] = useState(false);
 
+  /* ── User identity (stored in localStorage) ── */
   const [currentUser, setCurrentUser] = useState(() => {
     try { return localStorage.getItem('jobboard_user') || ''; } catch { return ''; }
   });
@@ -775,9 +784,11 @@ function App() {
     setCurrentUser(name);
     try { localStorage.setItem('jobboard_user', name); } catch {}
     setShowUserPicker(false);
+    /* Log board open when user first identifies */
     if (api.isConnected()) api.logActivity({ user: name, action: 'board_open', details: '', timestamp: new Date().toISOString() });
   }
 
+  /* ── Activity logging helper ── */
   function logAction(action, details) {
     if (!api.isConnected() || !currentUser) return;
     api.logActivity({ user: currentUser, action, details: details || '', timestamp: new Date().toISOString() });
@@ -788,7 +799,7 @@ function App() {
   const [projectOrder, setProjectOrder] = useState([]); /* array of project IDs for display order */
   const dragRef = useRef(null); /* tracks which project ID is being dragged */
 
-  /* ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ Keep projectOrder in sync ÃÂ¢ÃÂÃÂ add new projects, remove deleted ones ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ */
+  /* ── Keep projectOrder in sync — add new projects, remove deleted ones ── */
   useEffect(() => {
     setProjectOrder(prev => {
       const ids = new Set(projects.map(p => p.id));
@@ -799,7 +810,7 @@ function App() {
     });
   }, [projects]);
 
-  /* ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ Load data on mount ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ */
+  /* ── Load data on mount ── */
   useEffect(() => {
     async function load() {
       if (api.isConnected()) {
@@ -832,8 +843,7 @@ function App() {
     load();
   }, []);
 
-  /* ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ Auto-refresh from Google Sheets every 30 seconds ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ */
-  /* Show user picker if no user identified; log board open for returning users */
+  /* ── Show user picker if no user identified; log board open for returning users ── */
   useEffect(() => {
     if (!loading) {
       if (!currentUser) { setShowUserPicker(true); }
@@ -841,7 +851,8 @@ function App() {
     }
   }, [loading]);
 
-    useEffect(() => {
+  /* ── Auto-refresh from Google Sheets every 30 seconds ── */
+  useEffect(() => {
     if (!api.isConnected()) return;
     const interval = setInterval(async () => {
       try {
@@ -866,7 +877,7 @@ function App() {
 
   function getProjectsForDay(date) { const ds=fmtDate(date); return projects.filter(p=>p.startDate<=ds&&p.endDate>=ds); }
 
-  /* ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ Compute spanning project segments for a week row ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ */
+  /* ── Compute spanning project segments for a week row ── */
   function getWeekSegments(weekDays) {
     const ws = fmtDate(weekDays[0]), we = fmtDate(weekDays[6]);
     const segs = [];
@@ -894,7 +905,7 @@ function App() {
     return { segments:segs, numLanes:lanes.length };
   }
 
-  /* ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ CRUD with Google Sheets sync ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ */
+  /* ── CRUD with Google Sheets sync ── */
   async function handleSaveProject(data) {
     if (!data.equipment) data.equipment = [];
     const newEmps = data.employees.filter(e => !employees.includes(e));
@@ -912,7 +923,7 @@ function App() {
         catch { setSyncStatus('error'); }
       }
     } else {
-      // Create new ÃÂ¢ÃÂÃÂ assign sortOrder at the end
+      // Create new — assign sortOrder at the end
       data.sortOrder = projectOrder.length;
       const newProject = { ...data, id: nextId };
       setProjects(prev => [...prev, newProject]);
@@ -945,8 +956,8 @@ function App() {
   async function handleSplitProject(project, splitDateStr) {
     logAction('project_split', project.name + ' at ' + splitDateStr);
     /* Split a project into two parts at splitDateStr.
-       Part 1: original start \u2192 day before split date (keeps original crew)
-       Part 2: split date \u2192 original end (keeps original crew, user edits after) */
+       Part 1: original start → day before split date (keeps original crew)
+       Part 2: split date → original end (keeps original crew, user edits after) */
     const dayBefore = fmtDate(addDays(new Date(splitDateStr+'T00:00:00'), -1));
     const cc = project.ccChecks || {};
     const cc1 = {}, cc2 = {};
@@ -984,7 +995,7 @@ function App() {
     }, 300);
   }
 
-  /* ââ Toggle CC (CompanyCam) check for a project on a specific day ââ */
+  /* ── Toggle CC (CompanyCam) check for a project on a specific day ── */
   async function handleToggleCC(projectId, dateStr) {
     const ccProject = projects.find(p => p.id === projectId);
     logAction('cc_toggle', (ccProject?.name || '') + ' on ' + dateStr);
@@ -1050,7 +1061,7 @@ function App() {
   const today = fmtDate(new Date());
   const usedColors = projects.map(p => p.color);
 
-  /* ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ Overbooking detection: find employees assigned to 2+ projects on the same day ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ */
+  /* ── Overbooking detection: find employees assigned to 2+ projects on the same day (visible weeks only) ── */
   const overbookedEmps = useMemo(() => {
     const empDayMap = {}; // { empName: { date: [projectName, ...] } }
     const visStart = days.length > 0 ? fmtDate(days[0]) : '';
@@ -1081,7 +1092,7 @@ function App() {
 
   const overbookedSet = useMemo(() => new Set(Object.keys(overbookedEmps)), [overbookedEmps]);
 
-  /* ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ Equipment overbooking detection ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ */
+  /* ── Equipment overbooking detection (visible weeks only) ── */
   const overbookedEquip = useMemo(() => {
     const equipDayMap = {};
     const visStart = days.length > 0 ? fmtDate(days[0]) : '';
@@ -1112,7 +1123,7 @@ function App() {
 
   const overbookedEquipSet = useMemo(() => new Set(Object.keys(overbookedEquip)), [overbookedEquip]);
 
-  /* ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ Available employees per day (unassigned to any project) ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ */
+  /* ── Available employees per day (unassigned to any project) ── */
   const [showAvailability, setShowAvailability] = useState(true);
 
   const availableByDay = useMemo(() => {
@@ -1130,7 +1141,7 @@ function App() {
     return result;
   }, [days, projects, employees]);
 
-  /* ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ By Person view: for each assigned employee, map their projects per day ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ */
+  /* ── By Person view: for each assigned employee, map their projects per day ── */
   const byPersonData = useMemo(() => {
     const empSet = new Set();
     for (const p of projects) {
@@ -1164,98 +1175,109 @@ function App() {
 
   if (loading) return React.createElement('div', { style:{ display:'flex',alignItems:'center',justifyContent:'center',height:'100vh',fontSize:16,color:'#6b7280' }}, 'Loading Job Board...');
 
-  /* ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ Render ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ */
+  /* ─── Render ─── */
   return React.createElement('div', { style:{ display:'flex',flexDirection:'column',height:'100vh',overflow:'hidden' }},
 
     /* Setup banner when not connected */
     !api.isConnected() && React.createElement(SetupBanner),
 
-    /* ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ Header ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ */
+    /* ── Header ── */
     React.createElement('div', {
-      style:{ display:'flex',alignItems:'center',justifyContent:'space-between',padding:'12px 20px',background:'#fff',borderBottom:'1px solid #e5e7eb',boxShadow:'0 1px 3px rgba(0,0,0,0.05)',flexShrink:0 }
+      style:{ display:'flex',alignItems:'center',justifyContent:'space-between',padding:'6px 10px',background:'#fff',borderBottom:'1px solid #e5e7eb',boxShadow:'0 1px 3px rgba(0,0,0,0.05)',flexShrink:0,flexWrap:'wrap',gap:4 }
     },
-      React.createElement('div', { style:{ display:'flex',alignItems:'center',gap:16 }},
-        React.createElement('h1', { style:{ fontSize:22,fontWeight:800,color:'#1e293b',letterSpacing:'-0.02em' }}, 'Job Board'),
-        /* Nav arrows */
-        React.createElement('div', { style:{ display:'flex',alignItems:'center',gap:4,background:'#f3f4f6',borderRadius:8,padding:2 }},
-          React.createElement('button', { onClick:()=>navigateWeeks(-numWeeks), style:{ padding:'6px 10px',borderRadius:6,border:'none',background:'transparent',cursor:'pointer',fontSize:14,color:'#6b7280',fontWeight:600 }, title:`Back ${numWeeks} weeks` }, '\u27ea'),
-          React.createElement('button', { onClick:()=>navigateWeeks(-1), style:{ padding:'6px 10px',borderRadius:6,border:'none',background:'transparent',cursor:'pointer',fontSize:14,color:'#6b7280',fontWeight:600 }, title:'Back 1 week' }, '\u27e8'),
-          React.createElement('button', { onClick:goToToday, style:{ padding:'6px 14px',borderRadius:6,border:'none',background:'#fff',cursor:'pointer',fontSize:13,fontWeight:600,color:'#2563eb',boxShadow:'0 1px 2px rgba(0,0,0,0.08)' }}, 'Today'),
-          React.createElement('button', { onClick:()=>navigateWeeks(1), style:{ padding:'6px 10px',borderRadius:6,border:'none',background:'transparent',cursor:'pointer',fontSize:14,color:'#6b7280',fontWeight:600 }}, '\u27e9'),
-          React.createElement('button', { onClick:()=>navigateWeeks(numWeeks), style:{ padding:'6px 10px',borderRadius:6,border:'none',background:'transparent',cursor:'pointer',fontSize:14,color:'#6b7280',fontWeight:600 }, title:`Forward ${numWeeks} weeks` }, '\u27eb')
+      React.createElement('div', { style:{ display:'flex',alignItems:'center',gap:8,flexWrap:'wrap' }},
+        React.createElement('h1', { style:{ fontSize:18,fontWeight:800,color:'#1e293b',letterSpacing:'-0.02em' }}, 'Job Board'),
+        /* Nav arrows + Sync badge stacked */
+        React.createElement('div', { style:{ display:'flex',flexDirection:'column',gap:2,alignItems:'flex-start' }},
+          React.createElement('div', { style:{ display:'flex',alignItems:'center',gap:3 }},
+            /* Nav arrows */
+            React.createElement('div', { style:{ display:'flex',alignItems:'center',gap:1,background:'#f3f4f6',borderRadius:6,padding:1 }},
+              React.createElement('button', { onClick:()=>navigateWeeks(-numWeeks), style:{ padding:'3px 7px',borderRadius:4,border:'none',background:'transparent',cursor:'pointer',fontSize:12,color:'#6b7280',fontWeight:600 }, title:`Back ${numWeeks} weeks` }, '⟪'),
+              React.createElement('button', { onClick:()=>navigateWeeks(-1), style:{ padding:'3px 7px',borderRadius:4,border:'none',background:'transparent',cursor:'pointer',fontSize:12,color:'#6b7280',fontWeight:600 }, title:'Back 1 week' }, '⟨'),
+              React.createElement('button', { onClick:goToToday, style:{ padding:'3px 10px',borderRadius:4,border:'none',background:'#fff',cursor:'pointer',fontSize:11,fontWeight:600,color:'#2563eb',boxShadow:'0 1px 2px rgba(0,0,0,0.08)' }}, 'Today'),
+              React.createElement('button', { onClick:()=>navigateWeeks(1), style:{ padding:'3px 7px',borderRadius:4,border:'none',background:'transparent',cursor:'pointer',fontSize:12,color:'#6b7280',fontWeight:600 }}, '⟩'),
+              React.createElement('button', { onClick:()=>navigateWeeks(numWeeks), style:{ padding:'3px 7px',borderRadius:4,border:'none',background:'transparent',cursor:'pointer',fontSize:12,color:'#6b7280',fontWeight:600 }, title:`Forward ${numWeeks} weeks` }, '⟫')
+            ),
+            /* Week count selector */
+            React.createElement('div', { style:{ display:'flex',alignItems:'center',gap:1,background:'#f3f4f6',borderRadius:6,padding:1 }},
+              [1,2,3,4].map(n => React.createElement('button', {
+                key:n, onClick:()=>setNumWeeks(n),
+                style:{ padding:'3px 7px',borderRadius:4,border:'none',background: numWeeks===n ? '#fff':'transparent',boxShadow: numWeeks===n ? '0 1px 2px rgba(0,0,0,0.08)':'none',cursor:'pointer',fontSize:10,fontWeight: numWeeks===n ? 700:500,color: numWeeks===n ? '#2563eb':'#6b7280',transition:'all 0.15s' }
+              }, `${n}W`))
+            )
+          ),
+          /* Sync badge below Today toggle */
+          React.createElement(SyncBadge, { status: syncStatus })
         ),
-        /* Week count selector */
-        React.createElement('div', { style:{ display:'flex',alignItems:'center',gap:2,background:'#f3f4f6',borderRadius:8,padding:2 }},
-          [1,2,3,4].map(n => React.createElement('button', {
-            key:n, onClick:()=>setNumWeeks(n),
-            style:{ padding:'5px 10px',borderRadius:6,border:'none',background: numWeeks===n ? '#fff':'transparent',boxShadow: numWeeks===n ? '0 1px 2px rgba(0,0,0,0.08)':'none',cursor:'pointer',fontSize:12,fontWeight: numWeeks===n ? 700:500,color: numWeeks===n ? '#2563eb':'#6b7280',transition:'all 0.15s' }
-          }, `${n}W`))
-        ),
-        React.createElement('span', { style:{ fontSize:16,fontWeight:600,color:'#374151' }}, monthYearLabel),
+        React.createElement('span', { style:{ fontSize:14,fontWeight:600,color:'#374151' }}, monthYearLabel),
         /* View mode toggle */
-        React.createElement('div', { style:{ display:'flex',alignItems:'center',gap:2,background:'#f3f4f6',borderRadius:8,padding:2 }},
+        React.createElement('div', { style:{ display:'flex',alignItems:'center',gap:1,background:'#f3f4f6',borderRadius:6,padding:1 }},
           React.createElement('button', {
             onClick:()=>setViewMode('employees'),
-            style:{ padding:'5px 12px',borderRadius:6,border:'none',background:viewMode==='employees'?'#fff':'transparent',boxShadow:viewMode==='employees'?'0 1px 2px rgba(0,0,0,0.08)':'none',cursor:'pointer',fontSize:12,fontWeight:viewMode==='employees'?700:500,color:viewMode==='employees'?'#2563eb':'#6b7280',transition:'all 0.15s',display:'flex',alignItems:'center',gap:4 }
-          }, '\ud83d\udc64 Employees'),
+            style:{ padding:'3px 8px',borderRadius:4,border:'none',background:viewMode==='employees'?'#fff':'transparent',boxShadow:viewMode==='employees'?'0 1px 2px rgba(0,0,0,0.08)':'none',cursor:'pointer',fontSize:11,fontWeight:viewMode==='employees'?700:500,color:viewMode==='employees'?'#2563eb':'#6b7280',transition:'all 0.15s',display:'flex',alignItems:'center',gap:3 }
+          }, '👤 Employees'),
           React.createElement('button', {
             onClick:()=>setViewMode('equipment'),
-            style:{ padding:'5px 12px',borderRadius:6,border:'none',background:viewMode==='equipment'?'#fff':'transparent',boxShadow:viewMode==='equipment'?'0 1px 2px rgba(0,0,0,0.08)':'none',cursor:'pointer',fontSize:12,fontWeight:viewMode==='equipment'?700:500,color:viewMode==='equipment'?'#ea580c':'#6b7280',transition:'all 0.15s',display:'flex',alignItems:'center',gap:4 }
-          }, '\ud83d\udee0\ufe0f Equipment'),
+            style:{ padding:'3px 8px',borderRadius:4,border:'none',background:viewMode==='equipment'?'#fff':'transparent',boxShadow:viewMode==='equipment'?'0 1px 2px rgba(0,0,0,0.08)':'none',cursor:'pointer',fontSize:11,fontWeight:viewMode==='equipment'?700:500,color:viewMode==='equipment'?'#ea580c':'#6b7280',transition:'all 0.15s',display:'flex',alignItems:'center',gap:3 }
+          }, '🛠️ Equipment'),
           React.createElement('button', {
             onClick:()=>setViewMode('byPerson'),
-            style:{ padding:'5px 12px',borderRadius:6,border:'none',background:viewMode==='byPerson'?'#fff':'transparent',boxShadow:viewMode==='byPerson'?'0 1px 2px rgba(0,0,0,0.08)':'none',cursor:'pointer',fontSize:12,fontWeight:viewMode==='byPerson'?700:500,color:viewMode==='byPerson'?'#7c3aed':'#6b7280',transition:'all 0.15s',display:'flex',alignItems:'center',gap:4 }
-          }, '\ud83d\udcc5 By Person')
+            style:{ padding:'3px 8px',borderRadius:4,border:'none',background:viewMode==='byPerson'?'#fff':'transparent',boxShadow:viewMode==='byPerson'?'0 1px 2px rgba(0,0,0,0.08)':'none',cursor:'pointer',fontSize:11,fontWeight:viewMode==='byPerson'?700:500,color:viewMode==='byPerson'?'#7c3aed':'#6b7280',transition:'all 0.15s',display:'flex',alignItems:'center',gap:3 }
+          }, '📅 By Person')
         )
       ),
-      React.createElement('div', { style:{ display:'flex',gap:8,alignItems:'center' }},
+      React.createElement('div', { style:{ display:'flex',gap:6,alignItems:'center' }},
+        /* Current user identity */
         currentUser && React.createElement('div', {
           onClick:()=>setShowUserPicker(true),
-          style:{ display:'flex',alignItems:'center',gap:6,padding:'6px 12px',borderRadius:8,background:'#f0fdf4',border:'1px solid #bbf7d0',cursor:'pointer',fontSize:12,fontWeight:600,color:'#166534' },
+          style:{ display:'flex',alignItems:'center',gap:4,padding:'3px 8px',borderRadius:6,background:'#f0fdf4',border:'1px solid #bbf7d0',cursor:'pointer',fontSize:11,fontWeight:600,color:'#166534' },
           title:'Click to switch user'
         },
-          React.createElement('span', { style:{ fontSize:14 }}, '\ud83d\udc64'),
+          React.createElement('span', { style:{ fontSize:12 }}, '👤'),
           currentUser
         ),
+        /* Usage Dashboard button */
         React.createElement('button', {
           onClick:()=>setShowDashboard(true),
-          style:{ padding:'8px 14px',borderRadius:8,border:'1px solid #c4b5fd',background:'#faf5ff',color:'#7c3aed',fontWeight:600,fontSize:13,cursor:'pointer',display:'flex',alignItems:'center',gap:4 },
+          style:{ padding:'3px 8px',borderRadius:6,border:'1px solid #c4b5fd',background:'#faf5ff',color:'#7c3aed',fontWeight:600,fontSize:11,cursor:'pointer',display:'flex',alignItems:'center',gap:3 },
           onMouseOver:e=>e.currentTarget.style.background='#f3e8ff', onMouseOut:e=>e.currentTarget.style.background='#faf5ff',
           title:'View usage activity'
-        }, '\ud83d\udcca Activity'),
-        React.createElement(SyncBadge, { status: syncStatus }),
-        React.createElement('button', {
-          onClick:()=>setShowEmployees(true),
-          style:{ padding:'8px 16px',borderRadius:8,border:'1px solid #d1d5db',background:'#fff',color:'#374151',fontWeight:600,fontSize:13,cursor:'pointer' },
-          onMouseOver:e=>e.currentTarget.style.background='#f9fafb', onMouseOut:e=>e.currentTarget.style.background='#fff'
-        }, 'Employees'),
-        React.createElement('button', {
-          onClick:()=>setShowEquipment(true),
-          style:{ padding:'8px 16px',borderRadius:8,border:'1px solid #ea580c33',background:'#fff',color:'#ea580c',fontWeight:600,fontSize:13,cursor:'pointer' },
-          onMouseOver:e=>e.currentTarget.style.background='#fff7ed', onMouseOut:e=>e.currentTarget.style.background='#fff'
-        }, 'Equipment'),
-        React.createElement('button', {
-          onClick:()=>setShowImport(true),
-          style:{ padding:'8px 16px',borderRadius:8,border:'1px solid #d1d5db',background:'#fff',color:'#374151',fontWeight:600,fontSize:13,cursor:'pointer' },
-          onMouseOver:e=>e.currentTarget.style.background='#f9fafb', onMouseOut:e=>e.currentTarget.style.background='#fff'
-        }, 'Import CSV'),
+        }, '📊 Activity'),
+        /* Stacked: Employees, Equipment, Import CSV */
+        React.createElement('div', { style:{ display:'flex',flexDirection:'column',gap:2 }},
+          React.createElement('button', {
+            onClick:()=>setShowEmployees(true),
+            style:{ padding:'2px 8px',borderRadius:4,border:'1px solid #d1d5db',background:'#fff',color:'#374151',fontWeight:600,fontSize:11,cursor:'pointer',whiteSpace:'nowrap' },
+            onMouseOver:e=>e.currentTarget.style.background='#f9fafb', onMouseOut:e=>e.currentTarget.style.background='#fff'
+          }, 'Employees'),
+          React.createElement('button', {
+            onClick:()=>setShowEquipment(true),
+            style:{ padding:'2px 8px',borderRadius:4,border:'1px solid #ea580c33',background:'#fff',color:'#ea580c',fontWeight:600,fontSize:11,cursor:'pointer',whiteSpace:'nowrap' },
+            onMouseOver:e=>e.currentTarget.style.background='#fff7ed', onMouseOut:e=>e.currentTarget.style.background='#fff'
+          }, 'Equipment'),
+          React.createElement('button', {
+            onClick:()=>setShowImport(true),
+            style:{ padding:'2px 8px',borderRadius:4,border:'1px solid #d1d5db',background:'#fff',color:'#374151',fontWeight:600,fontSize:11,cursor:'pointer',whiteSpace:'nowrap' },
+            onMouseOver:e=>e.currentTarget.style.background='#f9fafb', onMouseOut:e=>e.currentTarget.style.background='#fff'
+          }, 'Import CSV')
+        ),
         React.createElement('button', {
           onClick:()=>{ setEditProject(null); setShowProjectModal(true); },
-          style:{ padding:'8px 16px',borderRadius:8,border:'none',background:'#2563eb',color:'#fff',fontWeight:600,fontSize:13,cursor:'pointer',boxShadow:'0 1px 3px rgba(37,99,235,0.3)' },
+          style:{ padding:'6px 12px',borderRadius:6,border:'none',background:'#2563eb',color:'#fff',fontWeight:600,fontSize:11,cursor:'pointer',boxShadow:'0 1px 3px rgba(37,99,235,0.3)' },
           onMouseOver:e=>e.currentTarget.style.background='#1d4ed8', onMouseOut:e=>e.currentTarget.style.background='#2563eb'
         }, '+ New Project')
       )
     ),
 
-    /* ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ Calendar Grid ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ */
+    /* ── Calendar Grid ── */
     viewMode === 'byPerson' ?
-    /* ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ BY PERSON VIEW ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ */
+    /* ══ BY PERSON VIEW ══ */
     React.createElement('div', { style:{ flex:1,overflow:'auto',padding:'12px' }},
       React.createElement('div', { style:{ borderRadius:10,overflow:'hidden',border:'1px solid #e5e7eb' }},
-        /* Header + employee rows per week */
+        /* Sticky header row with day names + dates */
         weeks.map((week, wi) =>
           React.createElement('div', { key:'bp-week-'+wi },
-            /* Day header row */
+            /* Day header row for this week */
             React.createElement('div', {
               style:{ display:'grid',gridTemplateColumns:'180px repeat(7, 1fr)',background: wi===0?'#f3f4f6':'#f9fafb',borderBottom:'1px solid #e5e7eb',borderTop: wi>0?'2px solid #d1d5db':'none' }
             },
@@ -1270,7 +1292,7 @@ function App() {
                 );
               })
             ),
-            /* Employee rows */
+            /* Employee rows for this week */
             byPersonData.employees.map((emp, ei) =>
               React.createElement('div', {
                 key:'bpr-'+emp+'-'+wi,
@@ -1283,10 +1305,10 @@ function App() {
                 },
                   wi === 0 ? emp : ''
                 ),
-                /* Day cells */
+                /* Day cells showing project assignments */
                 week.map((date, di) => {
                   const ds = fmtDate(date);
-                  const isToday = ds === today;
+                     const isToday = ds === today;
                   const projs = byPersonData.grid[emp]?.[ds] || [];
                   return React.createElement('div', {
                     key:'bpc-'+emp+'-'+ds,
@@ -1312,7 +1334,7 @@ function App() {
       )
     )
     :
-    /* ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ STANDARD CALENDAR VIEW ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ */
+    /* ══ STANDARD CALENDAR VIEW (Employees / Equipment) ══ */
     React.createElement('div', { style:{ flex:1,overflow:'auto',padding:'12px',display:'flex',flexDirection:'column',gap:0 }},
       /* Day headers */
       React.createElement('div', {
@@ -1320,7 +1342,7 @@ function App() {
       },
         DAY_NAMES.map((d,i) => React.createElement('div', { key:d, style:{ padding:'8px 10px',background: i>=5 ? '#f1f5f9':'#fff',textAlign:'center',fontSize:13,fontWeight:700,color: i>=5 ? '#94a3b8':'#374151',textTransform:'uppercase',letterSpacing:'0.05em' }}, d))
       ),
-      /* Week rows ÃÂ¢ÃÂÃÂ projects span across days */
+      /* Week rows — projects span across days */
       weeks.map((week, wi) => {
         const { segments, numLanes } = getWeekSegments(week);
         const totalRows = 1 + Math.max(numLanes, 1);
@@ -1329,12 +1351,12 @@ function App() {
           style:{ display:'grid',gridTemplateColumns:'repeat(7, 1fr)',gridTemplateRows:`auto repeat(${Math.max(numLanes,1)}, auto)`,borderRadius: wi===numWeeks-1 ? '0 0 10px 10px':0,overflow:'hidden',flex:1,minHeight:0,borderTop:'1px solid #e5e7eb' }
         },
           [].concat(
-            /* Day background cells ÃÂ¢ÃÂÃÂ span all rows */
+            /* Day background cells — span all rows */
             week.map((date, di) => {
               const ds=fmtDate(date), isToday=ds===today, isWeekend=di>=5;
               return React.createElement('div', { key:'bg-'+ds, style:{ gridColumn:di+1,gridRow:`1 / ${totalRows+1}`,background:isToday?'#eff6ff':isWeekend?'#f8fafc':'#fff',borderRight:di<6?'1px solid #e5e7eb':'none',borderLeft:isToday?'3px solid #2563eb':'none' }});
             }),
-            /* Date numbers ÃÂ¢ÃÂÃÂ row 1 */
+            /* Date numbers — row 1 */
             week.map((date, di) => {
               const ds=fmtDate(date), isToday=ds===today;
               return React.createElement('div', { key:'d-'+ds, style:{ gridColumn:di+1,gridRow:1,padding:'4px 5px',zIndex:1 }},
@@ -1343,7 +1365,7 @@ function App() {
                 )
               );
             }),
-            /* Project spanning bars ÃÂ¢ÃÂÃÂ rows 2+ */
+            /* Project spanning bars — rows 2+ */
             segments.map(seg => {
               const p=seg.project, fs=numWeeks<=2?10:9, nfs=numWeeks<=2?13:11;
               return React.createElement('div', {
@@ -1352,7 +1374,7 @@ function App() {
                 onDragStart:e=>{dragRef.current=p.id;e.dataTransfer.effectAllowed='move';e.currentTarget.style.opacity='0.5';},
                 onDragEnd:e=>{dragRef.current=null;e.currentTarget.style.opacity='1';},
                 onDragOver:e=>{e.preventDefault();e.dataTransfer.dropEffect='move';},
-                onDrop:e=>{e.preventDefault();const fromId=dragRef.current;if(fromId!=null&&fromId!==p.id){setProjectOrder(prev=>{const arr=[...prev];const fi=arr.indexOf(fromId),ti=arr.indexOf(p.id);if(fi<0||ti<0)return prev;arr.splice(fi,1);arr.splice(ti,0,fromId);if(api.isConnected()){const orderMap={};arr.forEach((id,i)=>orderMap[id]=i);setSyncStatus('saving');api.updateProjectOrder(orderMap).then(()=>setSyncStatus('saved')).catch(()=>setSyncStatus('error'));}return arr;});}},
+                onDrop:e=>{e.preventDefault();const fromId=dragRef.current;if(fromId!=null&&fromId!==p.id){setProjectOrder(prev=>{const arr=[...prev];const fi=arr.indexOf(fromId),ti=arr.indexOf(p.id);if(fi<0||ti<0)return prev;arr.splice(fi,1);arr.splice(ti,0,fromId);/* Save new order to Google Sheets */if(api.isConnected()){const orderMap={};arr.forEach((id,i)=>orderMap[id]=i);setSyncStatus('saving');api.updateProjectOrder(orderMap).then(()=>setSyncStatus('saved')).catch(()=>setSyncStatus('error'));}return arr;});}},
                 onClick:e=>{e.stopPropagation();setEditProject(p);setShowProjectModal(true);},
                 onContextMenu:e=>{e.preventDefault();e.stopPropagation();setQuickEdit({project:p,position:{x:e.clientX,y:e.clientY},field:viewMode});},
                 onMouseEnter:()=>setHoveredProject(p.id), onMouseLeave:()=>setHoveredProject(null),
@@ -1371,7 +1393,7 @@ function App() {
                     return React.createElement('span', { key:e, title: isOB ? `OVERBOOKED: ${e} is assigned to multiple projects on the same day` : '', style:{ fontSize:fs,color:isOB?'#dc2626':'#ea580c',fontWeight:isOB?700:500,lineHeight:1.3,whiteSpace:'nowrap',background:isOB?'#fef2f2':'transparent',padding:isOB?'0 3px':0,borderRadius:isOB?3:0,animation:isOB?'overbookPulse 1.5s infinite':'' }}, e+(idx<(p.equipment||[]).length-1?',':''));
                   })
                 ),
-                /* CC? checkboxes - one per day inside the project bar */
+                /* CC? checkboxes — one per day inside the project bar */
                 React.createElement('div', { style:{ display:'flex', gap:3, marginTop:2, flexWrap:'wrap', justifyContent:'flex-end' }},
                   (() => {
                     const ccDays = [];
@@ -1409,7 +1431,7 @@ function App() {
       })
     ),
 
-/* ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ Available Employees by Day ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ */
+    /* ── Available Employees by Day ── */
     React.createElement('div', {
       style:{ flexShrink:0,borderTop:'2px solid #d1d5db',background:'#f9fafb' }
     },
@@ -1425,7 +1447,7 @@ function App() {
           React.createElement('span', { style:{ fontSize:13,fontWeight:700,color:'#334155' }}, 'Available Employees'),
           React.createElement('span', { style:{ fontSize:11,fontWeight:500,color:'#94a3b8' }}, `(unassigned by day)`)
         ),
-        React.createElement('span', { style:{ fontSize:12,color:'#94a3b8',fontWeight:600 }}, showAvailability ? '\u25BC Hide' : '\u25B6 Show')
+        React.createElement('span', { style:{ fontSize:12,color:'#94a3b8',fontWeight:600 }}, showAvailability ? '▼ Hide' : '▶ Show')
       ),
       /* Grid of available employees per day */
       showAvailability && React.createElement('div', {
@@ -1466,7 +1488,7 @@ function App() {
       )
     ),
 
-        /* ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ Overbooking warnings ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ */
+    /* ── Overbooking warnings ── */
     (Object.keys(overbookedEmps).length > 0 || Object.keys(overbookedEquip).length > 0) && React.createElement('div', {
       style:{ padding:'8px 16px',background:'#fef2f2',borderTop:'2px solid #fca5a5',display:'flex',alignItems:'flex-start',gap:10,flexShrink:0,overflow:'auto',maxHeight:140 }
     },
@@ -1499,13 +1521,12 @@ function App() {
       )
     ),
 
-    /* ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ Modals ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ */
+    /* ── Modals ── */
     React.createElement(ProjectFormModal, { open:showProjectModal, onClose:()=>{ setShowProjectModal(false); setEditProject(null); }, onSave:handleSaveProject, onDelete:handleDeleteProject, onSplit:handleSplitProject, project:editProject, allEmployees:employees, allEquipment:equipment, usedColors }),
     React.createElement(CSVImportModal, { open:showImport, onClose:()=>setShowImport(false), onImport:handleImportProjects }),
     React.createElement(ManageEmployeesModal, { open:showEmployees, onClose:()=>setShowEmployees(false), employees, onUpdate:handleUpdateEmployees }),
     React.createElement(ManageEquipmentModal, { open:showEquipment, onClose:()=>setShowEquipment(false), equipment, onUpdate:handleUpdateEquipment }),
     quickEdit && React.createElement(QuickEditPopup, { project:quickEdit.project, position:quickEdit.position, allItems:quickEdit.field==='equipment'?equipment:employees, field:quickEdit.field==='equipment'?'equipment':'employees', onUpdate:handleQuickUpdate, onClose:()=>setQuickEdit(null) }),
-
     React.createElement(UserPickerModal, { open:showUserPicker, onSelect:selectUser, allUsers:employees }),
     React.createElement(ActivityDashboard, { open:showDashboard, onClose:()=>setShowDashboard(false) }),
 
