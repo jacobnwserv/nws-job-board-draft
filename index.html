@@ -828,7 +828,7 @@ function App() {
     });
   }, [projects]);
 
-  /* ── Load data on mount ── */
+  o* ── Load data on mount ── */
   useEffect(() => {
     async function load() {
       if (api.isConnected()) {
@@ -1305,11 +1305,12 @@ function App() {
             onClick:()=>setShowImport(true),
             style:{ padding:'2px 8px',borderRadius:4,border:'1px solid #d1d5db',background:'#fff',color:'#374151',fontWeight:600,fontSize:11,cursor:'pointer',whiteSpace:'nowrap' },
             onMouseOver:e=>e.currentTarget.style.background='#f9fafb', onMouseOut:e=>e.currentTarget.style.background='#fff'
-          }, 'Import CSV'),
-          React.createElement('button', {
-            onClick:()=>{ setEditProject(null); setShowProjectModal(true); },
-            style:{ padding:'6px 12px',borderRadius:6,border:'none',background:'#2563eb',color:'#fff',fontWeight:600,fontSize:11,cursor:'pointer',boxShadow:'0 1px 3px rgba(37,99,235,0.3)' },
-            onMouseOver:e=>e.currentTarget.style.background='#1d4ed8', onMouseOut:e=>e.currentTarget.style.background='#2563eb'
+          }, 'Import CSV')
+        ),
+        React.createElement('button', {
+          onClick:()=>{ setEditProject(null); setShowProjectModal(true); },
+          style:{ padding:'6px 12px',borderRadius:6,border:'none',background:'#2563eb',color:'#fff',fontWeight:600,fontSize:11,cursor:'pointer',boxShadow:'0 1px 3px rgba(37,99,235,0.3)' },
+          onMouseOver:e=>e.currentTarget.style.background='#1d4ed8', onMouseOut:e=>e.currentTarget.style.background='#2563eb'
         }, '+ New Project')
       )
     ),
@@ -1339,4 +1340,316 @@ function App() {
             ),
             /* Employee rows for this week */
             byPersonData.employees.map((emp, ei) =>
-              React.createElemV�B�vF�br����W��v'"�r�V��r�r�v���7G��S��F�7���vw&�Br�w&�EFV��FT6��V��3�s��&WVB�r�g"�r�&�&FW$&�GF�ӢV��'�W'6��FF�V����VW2��V�wF���s�6�ƖB6c6cFcbs�v���Rr�֖�V�v�C�3b�������W6TV�FW#�S��R�7W'&V�EF&vWB�7G��R�&6�w&�V�C�r6ff&f2r�����W6T�VfS�S��R�7W'&V�EF&vWB�7G��R�&6�w&�V�C�wG&�7&V�Bp�����V����VR��R6V����&V7B�7&VFTV�V�V�B�vF�br���7G��S��FF��s�sG��r�&�&FW%&�v�C�s�6�ƖB6SVSvV"r�F�7���vf�W�r�Ɩv�FV�3�v6V�FW"r�f��E6��S�"�f��EvV�v�C�c�6���#��fW&&���VE6WB�2�V���r6F3#c#bs�r333CSRr�&6�w&�V�C��fW&&���VE6WB�2�V���r6fVc&c"s�wG&�7&V�Br�v��FU76S�v��w&r��fW&f��s�v��FFV�r�FW�D�fW&f��s�vV�Ɨ6�2rТ���v�����V��rp�����F�6V��26��v��r&��V7B76�v��V�G2��vVV�����FFR�F������6��7BG2�f�DFFR�FFR���6��7B�5F�F��G2���F�F���6��7B&��2�'�W'6��FF�w&�E�V����G5����Ӱ�&WGW&�&V7B�7&VFTV�V�V�B�vF�br����W��v'2�r�V��r�r�G2��7G��S��FF��s�s'�7�r�&�&FW%&�v�C�F��c�s�6�ƖB6c6cFcbs�v���Rr�&6�w&�V�C��5F�F��r6Vfcffbs�wG&�7&V�Br�F�7���vf�W�r�f�W�F�&V7F���v6��V��r�v�ƧW7F�g�6��FV�C�v6V�FW"rТ���&��2��V�wF���� ���V����&��2�����&V7B�7&VFTV�V�V�B�vF�br����W���B����6Ɩ6��S��R�7F�&�vF��ₓ�6WDVF�E&��V7B���6WE6��u&��V7D��FG'VR�����7G��S��f��E6��S��f��EvV�v�C�c�6���#��6���"�&6�w&�V�C��6���"�s�r�FF��s�s'�W�r�&�&FW%&F�W3�2�&�&FW$�VgC�'�6�ƖBG��6���'��7W'6�#�w���FW"r�v��FU76S�v��w&r��fW&f��s�v��FFV�r�FW�D�fW&f��s�vV�Ɨ6�2r�Ɩ�T�V�v�C��B���F�F�S����R������W6T�fW#�S��R�7W'&V�EF&vWB�7G��R��6�G��s�r�����W6T�WC�S��R�7W'&V�EF&vWB�7G��R��6�G��sp������R�������Ґ����������������)Y)Y5D�D$B4�T�D"d�Ur�V����VW2�WV��V�B�)Y)Y��&V7B�7&VFTV�V�V�B�vF�br��7G��S��f�W����fW&f��s�vWF�r�FF��s�s'�r�F�7���vf�W�r�f�W�F�&V7F���v6��V��r�v������F��VFW'2��&V7B�7&VFTV�V�V�B�vF�br���7G��S��F�7���vw&�Br�w&�EFV��FT6��V��3�w&WVB�r�g"�r�v��&6�w&�V�C�r6SVSvV"r�&�&FW%&F�W3�s��r��fW&f��s�v��FFV�r�f�W�6�&�泣Т���D����U2����Bƒ���&V7B�7&VFTV�V�V�B�vF�br���W��B�7G��S��FF��s�s���r�&6�w&�V�C����R�r6ccVc�s�r6ffbr�FW�DƖv�v6V�FW"r�f��E6��S�2�f��EvV�v�C�s�6���#����R�r3�F6#�s�r33sCSr�FW�EG&�6f�&ӢwWW&66Rr��WGFW%76��s�s�VV�r���B�������vVV�&�w2(	B&��V7G27�7&�72F�2��vVV�2����vVV��v������6��7B�6Vv�V�G2��V���W2��vWEvVV�6Vv�V�G2�vVV����6��7BF�F�&�w2���F������V���W2����&WGW&�&V7B�7&VFTV�V�V�B�vF�br����W��v���7G��S��F�7���vw&�Br�w&�EFV��FT6��V��3�w&WVB�r�g"�r�w&�EFV��FU&�w3�WF�&WVB�G��F������V���W2����WF��&�&FW%&F�W3�v�����V�vVV�2��s��s���fW&f��s�v��FFV�r�f�W���֖�V�v�C��&�&FW%F��s�6�ƖB6SVSvV"rТ������6��6B���F�&6�w&�V�B6V��2(	B7���&�w2��vVV�����FFR�F������6��7BG3�f�DFFR�FFR���5F�F��G3���F�F���5vVV�V�C�F���S��&WGW&�&V7B�7&VFTV�V�V�B�vF�br���W��v&r�r�G2�7G��S��w&�D6��V��F���w&�E&�s��G�F�F�&�w2���&6�w&�V�C��5F�F��r6Vfcffbs��5vVV�V�C�r6c�ff2s�r6ffbr�&�&FW%&�v�C�F��c�s�6�ƖB6SVSvV"s�v���Rr�&�&FW$�VgC��5F�F��s7�6�ƖB3#Sc6V"s�v���Rr�ғ��Ғ���FFR�V�&W'2(	B&�r��vVV�����FFR�F������6��7BG3�f�DFFR�FFR���5F�F��G3���F�F���&WGW&�&V7B�7&VFTV�V�V�B�vF�br���W��vB�r�G2�7G��S��w&�D6��V��F���w&�E&�s��FF��s�sG�W�rǤ��FW������&V7B�7&VFTV�V�V�B�w7�r��7G��S��f��E6��S�2�f��EvV�v�C��5F�F���FFR�vWDFFR������s�c�&6�w&�V�C��5F�F��r3#Sc6V"s�wG&�7&V�Br�6���#��5F�F��r6ffbs�r33sCSr�&�&FW%&F�W3��5F�F��#��FF��s��5F�F��s�w�s��Ɩ�T�V�v�C��R����FFR�vWDFFR������G��t��r�tfV"r�t�"r�t"r�t��r�t�V�r�t�V�r�tVrr�u6Wr�t�7Br�t��br�tFV2uնFFR�vWD���F�����G�FFR�vWDFFR����FFR�vWDFFR��������Ғ���&��V7B7���r&'2(	B&�w2"���6Vv�V�G2���6Vr����6��7B�6Vr�&��V7B�g3��V�vVV�3��#�����g3��V�vVV�3��#�3���&WGW&�&V7B�7&VFTV�V�V�B�vF�br����W���G��G��G�v����G&vv&�S�G'VR����G&u7F'C�S��G&u&Vb�7W'&V�C��C�R�FFG&�6fW"�VffV7D���vVC�v��fRs�R�7W'&V�EF&vWB�7G��R��6�G��s�Rs������G&tV�C�S��G&u&Vb�7W'&V�C��V�öR�7W'&V�EF&vWB�7G��R��6�G��ss������G&t�fW#�S��R�&WfV�DFVfV�B���R�FFG&�6fW"�G&�VffV7C�v��fRs������G&��S��R�&WfV�DFVfV�B���6��7Bg&�ԖC�G&u&Vb�7W'&V�C��b�g&�ԖB��V��bfg&�ԖB���B��6WE&��V7D�&FW"�&Wc��6��7B'#ղ���&WeӶ6��7Bf��'"��FW��b�g&�ԖB��F��'"��FW��b��B���b�f����F���&WGW&�&Wc�'"�7Ɩ6R�f����'"�7Ɩ6R�F���g&�ԖB���6fR�Wr�&FW"F�v��v�R6�VWG2���b���46���V7FVB����6��7B�&FW$�׷Ӷ'"�f�$V6����Bƒ����&FW$���E�֒��6WE7��57FGW2�w6f��rr����WFFU&��V7D�&FW"��&FW$���F�V₂���6WE7��57FGW2�w6fVBr���6F6������6WE7��57FGW2�vW'&�"r����&WGW&�'#�ғ�������6Ɩ6��S��R�7F�&�vF��ₓ�6WDVF�E&��V7B���6WE6��u&��V7D��FG'VR�������6��FW�D�V�S�S��R�&WfV�DFVfV�B���R�7F�&�vF��ₓ�6WEV�6�VF�B��&��V7C���6�F��㧷��R�6ƖV�E�Ǔ�R�6ƖV�E���f�V�C�f�Wt��FWғ��������W6TV�FW#�����6WD��fW&VE&��V7B��B������W6T�VfS�����6WD��fW&VE&��V7B��V���7G��S��w&�D6��V��G�6Vr�7F'D6�³��G�6Vr�V�D6�³'��w&�E&�s�6Vr���R�"�&6�w&�V�C��6���"�sRr�&�&FW$�VgC�7�6�ƖBG��6���'��&�&FW%&F�W3�G�6Vr�57F'C�C���G�6Vr�4V�C�C���G�6Vr�4V�C�C���G�6Vr�57F'C�C����FF��s�s7�g�r��&v��s�'�r�7W'6�#�vw&"r�G&�6�F���v�6�G��2r��6�G����fW&VE&��V7Bbf��fW&VE&��V7B���C��C�Ǥ��FW����fW&f��s�v��FFV�r�֖�v�GF��Т���&V7B�7&VFTV�V�V�B�vF�br��7G��S��f��E6��S��g2�f��EvV�v�C�s�6���#��6���"�Ɩ�T�V�v�C��2�v��FU76S�v��w&r��fW&f��s�v��FFV�r�FW�D�fW&f��s�vV�Ɨ6�2r������R���&V7B�7&VFTV�V�V�B�vF�br��7G��S��F�7���vf�W�r�f�W�w&�ww&r�v���&v��F������f�Wt��FR���vV����VW2r��V����VW2����RƖG������6��7B�4�"��fW&&���VE6WB�2�R���&WGW&�&V7B�7&VFTV�V�V�B�w7�r���W��R�F�F�S��4�"��dU$$���TC�G�W��276�v�VBF��V�F��R&��V7G2��F�R6�RF��rr�7G��S��f��E6��S�g2�6���#��4�#�r6F3#c#bs�r3cCsC�"r�f��EvV�v�C��4�#�s�C�Ɩ�T�V�v�C��2�v��FU76S�v��w&r�&6�w&�V�C��4�#�r6fVc&c"s�wG&�7&V�Br�FF��s��4�#�s7�s��&�&FW%&F�W3��4�#�3����F��㦗4�#�v�fW&&���V�6R�W2��f��FRs�rr���R���G���V����VW2��V�wF���r�s�rr����Ґ�����WV��V�G�ŵҒ����RƖG������6��7B�4�"��fW&&���VDWV�6WB�2�R���&WGW&�&V7B�7&VFTV�V�V�B�w7�r���W��R�F�F�S��4�"��dU$$���TC�G�W��276�v�VBF��V�F��R&��V7G2��F�R6�RF��rr�7G��S��f��E6��S�g2�6���#��4�#�r6F3#c#bs�r6VS�2r�f��EvV�v�C��4�#�s�S�Ɩ�T�V�v�C��2�v��FU76S�v��w&r�&6�w&�V�C��4�#�r6fVc&c"s�wG&�7&V�Br�FF��s��4�#�s7�s��&�&FW%&F�W3��4�#�3����F��㦗4�#�v�fW&&���V�6R�W2��f��FRs�rr���R���G��WV��V�G�ŵҒ��V�wF���r�s�rr����Ґ�����43�6�V6�&��W2(	B��RW"F���6�FRF�R&��V7B&"��&V7B�7&VFTV�V�V�B�vF�br��7G��S��F�7���vf�W�r�v�2��&v��F��"�f�W�w&�ww&r��W7F�g�6��FV�C�vf�W��V�Br�����������6��7B64F�2��Ӱ�f�"��WB6��6Vr�7F'D6�ò6���6Vr�V�D6�ò6������6��7BG2�f�DFFR�vVV��6�ғ��6��7B6�V6�VB���646�V6�2bb�646�V6�5�G5Ғ��f�6S��6��7BF��&V���t�r�uBr�urr�uF�r�tbr�u6r�u7Ruն6�Ӱ�64F�2�W6��&V7B�7&VFTV�V�V�B�v�&V�r����W��v62�r�G2����6Ɩ6��R��R�7F�&�vF��ₒ������W6TF�v�R��R�7F�&�vF��ₒ��G&vv&�S�f�6R��7G��S��F�7���vf�W�r�Ɩv�FV�3�v6V�FW"r�v��7W'6�#�w���FW"r�f��E6��S���f��EvV�v�C�c�Ɩ�T�V�v�C��FF��s�s�'�r�&�&FW%&F�W3�"�&6�w&�V�C�6�V6�VB��6���"�s#Rr�wG&�7&V�Br���F�F�S�t42r�F��&V��s�r��6�V6�VB�t6��f�&�VBr�t��B6��f�&�VBr�����&V7B�7&VFTV�V�V�B�v��WBr���G�S�v6�V6�&��r��6�V6�VC�6�V6�VB����6��vS�R���R�7F�&�vF��ₓ���F�UF�vv�T42��B�G2�������6Ɩ6��R��R�7F�&�vF��ₒ������W6TF�v�R��R�7F�&�vF��ₒ��G&vv&�S�f�6R��7G��S��v�GF�����V�v�C���7W'6�#�w���FW"r�66V�D6���#��6���"��&v��ТҒ��&V7B�7&VFTV�V�V�B�w7�r��7G��S��6���#��6���"��6�G��6�V6�VB���R���F��&V�����Т&WGW&�64F�3��Ғ��������Ґ������Ґ������)H)Hf��&�RV����VW2'�F�)H)H��&V7B�7&VFTV�V�V�B�vF�br���7G��S��f�W�6�&�泣�&�&FW%F��s'�6�ƖB6CCVF"r�&6�w&�V�C�r6c�ff"rТ����F�vv�R�VFW"��&V7B�7&VFTV�V�V�B�vF�br�����6Ɩ6������6WE6��tf��&�ƗG��6��tf��&�ƗG����7G��S��F�7���vf�W�r�Ɩv�FV�3�v6V�FW"rƧW7F�g�6��FV�C�w76R�&WGvVV�r�FF��s�s��g�r�7W'6�#�w���FW"r�W6W%6V�V7C�v���Rr�������W6T�fW#�S��R�7W'&V�EF&vWB�7G��R�&6�w&�V�C�r6ccVc�r������W6T�WC�S��R�7W'&V�EF&vWB�7G��R�&6�w&�V�C�wG&�7&V�Bp����&V7B�7&VFTV�V�V�B�vF�br��7G��S��F�7���vf�W�r�Ɩv�FV�3�v6V�FW"r�v������&V7B�7&VFTV�V�V�B�w7�r��7G��S��f��E6��S�B���u�W�cD4'�r���&V7B�7&VFTV�V�V�B�w7�r��7G��S��f��E6��S�2�f��EvV�v�C�s�6���#�r333CSRr���tf��&�RV����VW2r���&V7B�7&VFTV�V�V�B�w7�r��7G��S��f��E6��S��f��EvV�v�C�S�6���#�r3�F6#�r����V�76�v�VB'�F�������&V7B�7&VFTV�V�V�B�w7�r��7G��S��f��E6��S�"�6���#�r3�F6#�r�f��EvV�v�C�c���6��tf��&�ƗG��~)k���FRr�~)kb6��rr������w&�B�bf��&�RV����VW2W"F���6��tf��&�ƗG�bb&V7B�7&VFTV�V�V�B�vF�br���7G��S�����V�v�C�#��fW&f��s�vWF�r�FF��s�s'��rТ���vVV�2����vVV��v����&V7B�7&VFTV�V�V�B�vF�br����W��vf���r�v���7G��S��F�7���vw&�Br�w&�EFV��FT6��V��3�w&WVB�r�g"�r�v���&v��&�GF�Ӣv��vVV�2��V�wF����Т���vVV�����FFR�F������6��7BG2�f�DFFR�FFR���6��7Bf���f��&�T'�F��G5����Ӱ�6��7B�5F�F��G2���F�F���6��7B�5vVV�V�B�F���S��&WGW&�&V7B�7&VFTV�V�V�B�vF�br����W��vb�r�G2��7G��S��FF��s�sG�g�r�&6�w&�V�C��5F�F��r6Vfcffbs��5vVV�V�C�r6c�ff2s�r6ffbr�&�&FW%&�v�C�F��c�s�6�ƖB6SVSvV"s�v���Rr�&�&FW$&�GF�Ӣs�6�ƖB6SVSvV"r�֖�V�v�C�#�Т���v����bb&V7B�7&VFTV�V�V�B�vF�br��7G��S��f��E6��S��f��EvV�v�C�s�6���#�r3�F6#�r��&v��&�GF�ӣ"�FW�EG&�6f�&ӢwWW&66Rr��WGFW%76��s�s�VV�r����FFR�vWDFFR������G��t��r�tfV"r�t�"r�t"r�t��r�t�V�r�t�V�r�tVrr�u6Wr�t�7Br�t��br�tFV2uնFFR�vWD���F�����G�FFR�vWDFFR����G��t���r�uGVRr�uvVBr�uF�Rr�tg&�r�u6Br�u7V�uնF���G�FFR�vWDFFR��� ����v��bb&V7B�7&VFTV�V�V�B�vF�br��7G��S��f��E6��S��f��EvV�v�C�c�6���#�r3�F6#�r��&v��&�GF�ӣ"����FFR�vWDFFR������G��t��r�tfV"r�t�"r�t"r�t��r�t�V�r�t�V�r�tVrr�u6Wr�t�7Br�t��br�tFV2uնFFR�vWD���F�����G�FFR�vWDFFR����FFR�vWDFFR������f����V�wF���� ��&V7B�7&VFTV�V�V�B�vF�br��7G��S��f��E6��S��6���#�r6CCVF"r�f��E7G��S�v�FƖ2r���t���Rr���&V7B�7&VFTV�V�V�B�vF�br��7G��S��F�7���vf�W�r�f�W�F�&V7F���v6��V��r�v�����f�����V���&V7B�7&VFTV�V�V�B�vF�br���W��V��7G��S��f��E6��S��6���#�r3f3Fr�f��EvV�v�C�S�Ɩ�T�V�v�C��R�v��FU76S�v��w&r��fW&f��s�v��FFV�r�FW�D�fW&f��s�vV�Ɨ6�2r���V��������f����V�wF��bb&V7B�7&VFTV�V�V�B�vF�br��7G��S��f��E6��S���f��EvV�v�C�s�6���#�r3f3Fr��&v��F��"�&6�w&�V�C�r6F6f6Srr�FF��s�s�G�r�&�&FW%&F�W3�2�F�7���v��Ɩ�R�&��6�r���G�f����V�wF��f��������Ґ������������)H)HD$B&��V7BVWVR)H)H��&V7B�7&VFTV�V�V�B�vF�br���7G��S��f�W�6�&�泣�&�&FW%F��s'�6�ƖB6CCVF"r�&6�w&�V�C�r6c�ff"rТ����F�vv�R�VFW"��&V7B�7&VFTV�V�V�B�vF�br�����6Ɩ6������6WE6��uD$EVWVR�6��uD$EVWVR���7G��S��F�7���vf�W�r�Ɩv�FV�3�v6V�FW"rƧW7F�g�6��FV�C�w76R�&WGvVV�r�FF��s�s��g�r�7W'6�#�w���FW"r�W6W%6V�V7C�v���Rr�������W6T�fW#�S��R�7W'&V�EF&vWB�7G��R�&6�w&�V�C�r6ccVc�r������W6T�WC�S��R�7W'&V�EF&vWB�7G��R�&6�w&�V�C�wG&�7&V�Bp����&V7B�7&VFTV�V�V�B�vF�br��7G��S��F�7���vf�W�r�Ɩv�FV�3�v6V�FW"r�v���f�W�w&�ww&r����&V7B�7&VFTV�V�V�B�w7�r��7G��S��f��E6��S�B���u�W�cD3'�r���&V7B�7&VFTV�V�V�B�w7�r��7G��S��f��E6��S�2�f��EvV�v�C�s�6���#�r333CSRr���uD$B&��V7BVWVRr���&V7B�7&VFTV�V�V�B�w7�r��7G��S��f��E6��S��f��EvV�v�C�S�6���#�r3�F6#�r���tv&FVB��'2F�B&Rf�W��&�R�"V���v�7F'BFFRr�����&V7B�7&VFTV�V�V�B�w7�r��7G��S��f��E6��S�"�6���#�r3�F6#�r�f��EvV�v�C�c���6��uD$EVWVR�~)k���FRr�~)kb6��rr������VWVR6��FV�B��6��uD$EVWVRbb&V7B�7&VFTV�V�V�B�vF�br���7G��S��FF��s�sg�'�rТ����FB�FV�&�r��&V7B�7&VFTV�V�V�B�vF�br��7G��S��F�7���vf�W�r�v����&v��&�GF�ӣ�����&V7B�7&VFTV�V�V�B�v��WBr���G�S�wFW�Br��f�VS��WuD$D�FV�����6��vS�S��6WD�WuD$D�FV҆R�F&vWB�f�VR�����W�F�v�S���b�R�W����tV�FW"r���F�TFED$D�FV҂������6V���FW#�tFB&��V7BF�F�RVWVR���r��7G��S��f�W���FF��s�sg��r�f��E6��S�"�&�&FW#�s�6�ƖB6CCVF"r�&�&FW%&F�W3�b��WFƖ�S�v���Rr�&6�w&�V�C�r6ffbrТҒ��&V7B�7&VFTV�V�V�B�v'WGF��r�����6Ɩ6����F�TFED$D�FV���7G��S��FF��s�sg�G�r�f��E6��S�"�f��EvV�v�C�c�6���#�r6ffbr�&6�w&�V�C�r3#Sc6V"r�&�&FW#�v���Rr�&�&FW%&F�W3�b�7W'6�#�w���FW"r�v��FU76S�v��w&rТ��r�FBr������Ɨ7B�b�FV�2��F&EVWVR��V�wF���� ��&V7B�7&VFTV�V�V�B�vF�br��7G��S��f��E6��S�"�6���#�r3�F6#�r�f��E7G��S�v�FƖ2r�FF��s�sG�r���t��&��V7G2��VWVRr���&V7B�7&VFTV�V�V�B�vF�br��7G��S��F�7���vf�W�r�f�W�F�&V7F���v6��V��r�v�B����F&EVWVR�����FV������&V7B�7&VFTV�V�V�B�vF�br����W�����7G��S��F�7���vf�W�r�Ɩv�FV�3�v6V�FW"rƧW7F�g�6��FV�C�w76R�&WGvVV�r�FF��s�sg��r�&6�w&�V�C�r6ffbr�&�&FW#�s�6�ƖB6SVSvV"r�&�&FW%&F�W3�b�f��E6��S�"�6���#�r333CSRrТ���&V7B�7&VFTV�V�V�B�w7�r��7G��S��f��EvV�v�C�S����FVҒ��&V7B�7&VFTV�V�V�B�v'WGF��r�����6Ɩ6�������F�U&V��fUD$D�FV҆����F�F�S�u&V��fRg&��VWVRr��7G��S��&6�w&�V�C�v���Rr�&�&FW#�v���Rr�7W'6�#�w���FW"r�f��E6��S�B�6���#�r3�F6#�r�FF��s�sG�r�Ɩ�T�V�v�C��������W6T�fW#�S��R�7W'&V�EF&vWB�7G��R�6���#�r6F3#c#br������W6T�WC�S��R�7W'&V�EF&vWB�7G��R�6���#�r3�F6#�p���|9rr���������������)H)H�fW&&�����rv&��w2)H)H����&�V7B�W�2��fW&&���VDV�2���V�wF�����&�V7B�W�2��fW&&���VDWV����V�wF���bb&V7B�7&VFTV�V�V�B�vF�br���7G��S��FF��s�s��g�r�&6�w&�V�C�r6fVc&c"r�&�&FW%F��s'�6�ƖB6f6VRr�F�7���vf�W�r�Ɩv�FV�3�vf�W��7F'Br�v��f�W�6�&�泣��fW&f��s�vWF�r����V�v�C�CТ���&V7B�7&VFTV�V�V�B�w7�r��7G��S��f��E6��S�b�Ɩ�T�V�v�C��2�f�W�6�&�泣���u�S#f�VfSbr���&V7B�7&VFTV�V�V�B�vF�br��7G��S��F�7���vf�W�r�f�W�F�&V7F���v6��V��r�v�B�f�W���֖�v�GF�������&�V7B�W�2��fW&&���VDV�2���V�wF��bb&V7B�7&VFTV�V�V�B�vF�br�����&V7B�7&VFTV�V�V�B�w7�r��7G��S��f��E6��S�"�f��EvV�v�C�s�6���#�r3��#"r���V����VR�fW&&�����r�S#BG��&�V7B�W�2��fW&&���VDV�2���V�wF��V����VRG��&�V7B�W�2��fW&&���VDV�2���V�wF���w2s�rwӦ���&V7B�7&VFTV�V�V�B�vF�br��7G��S��F�7���vf�W�r�f�W�w&�ww&r�v�B��&v��F��"�����&�V7B�V�G&�W2��fW&&���VDV�2������V��6��fƖ7G5Ғ��&V7B�7&VFTV�V�V�B�w7�r����W��V���F�F�S�6��fƖ7G2���2��G�2�FFWӢG�2�&��V7G2����rbr�������u��r���7G��S��f��E6��S��f��EvV�v�C�c�6���#�r6F3#c#br�&6�w&�V�C�r6ffbr�FF��s�s'���r�&�&FW%&F�W3�B�&�&FW#�s�6�ƖB6f6VRr�7W'6�#�v�V�r�v��FU76S�v��w&rТ��G�V���G�6��fƖ7G2��V�wF��F�G�6��fƖ7G2��V�wF���w2s�rwҖ����������&�V7B�W�2��fW&&���VDWV����V�wF��bb&V7B�7&VFTV�V�V�B�vF�br�����&V7B�7&VFTV�V�V�B�w7�r��7G��S��f��E6��S�"�f��EvV�v�C�s�6���#�r3�3C"r���WV��V�B�fW&&�����r�S#BG��&�V7B�W�2��fW&&���VDWV����V�wF���FV�G��&�V7B�W�2��fW&&���VDWV����V�wF���w2s�rwӦ���&V7B�7&VFTV�V�V�B�vF�br��7G��S��F�7���vf�W�r�f�W�w&�ww&r�v�B��&v��F��"�����&�V7B�V�G&�W2��fW&&���VDWV�������W�6��fƖ7G5Ғ��&V7B�7&VFTV�V�V�B�w7�r����W��W��F�F�S�6��fƖ7G2���2��G�2�FFWӢG�2�&��V7G2����rbr�������u��r���7G��S��f��E6��S��f��EvV�v�C�c�6���#�r6VS�2r�&6�w&�V�C�r6ffbr�FF��s�s'���r�&�&FW%&F�W3�B�&�&FW#�s�6�ƖB6fF&sBr�7W'6�#�v�V�r�v��FU76S�v��w&rТ��G�W��G�6��fƖ7G2��V�wF��F�G�6��fƖ7G2��V�wF���w2s�rwҖ���������������)H)H��F�2)H)H��&V7B�7&VFTV�V�V�B�&��V7Df�&���F����V�6��u&��V7D��F����6��6S�����6WE6��u&��V7D��Ff�6R��6WDVF�E&��V7B��V������6fS���F�U6fU&��V7B���FV�WFS���F�TFV�WFU&��V7B���7ƗC���F�U7ƗE&��V7B�&��V7C�VF�E&��V7B���V����VW3�V����VW2���WV��V�C�WV��V�B�W6VD6���'2Ғ��&V7B�7&VFTV�V�V�B�55d���'D��F����V�6��t���'B���6��6S�����6WE6��t���'B�f�6R������'C���F�T���'E&��V7G2Ғ��&V7B�7&VFTV�V�V�B���vTV����VW4��F����V�6��tV����VW2���6��6S�����6WE6��tV����VW2�f�6R��V����VW2���WFFS���F�UWFFTV����VW2Ғ��&V7B�7&VFTV�V�V�B���vTWV��V�D��F����V�6��tWV��V�B���6��6S�����6WE6��tWV��V�B�f�6R��WV��V�B���WFFS���F�UWFFTWV��V�BҒ��V�6�VF�Bbb&V7B�7&VFTV�V�V�B�V�6�VF�E�W��&��V7C�V�6�VF�B�&��V7B��6�F���V�6�VF�B��6�F�����ėFV�3�V�6�VF�B�f�V�C���vWV��V�Bs�WV��V�C�V����VW2�f�V�C�V�6�VF�B�f�V�C���vWV��V�Bs�vWV��V�Bs�vV����VW2r���WFFS���F�UV�6�WFFR���6��6S�����6WEV�6�VF�B��V�Ғ��&V7B�7&VFTV�V�V�B�W6W%�6�W$��F����V�6��uW6W%�6�W"���6V�V7C�6V�V7EW6W"���W6W'3�V����VW2Ғ��&V7B�7&VFTV�V�V�B�7F�f�G�F6�&�&B���V�6��tF6�&�&B���6��6S�����6WE6��tF6�&�&B�f�6R�Ғ���&V7B�7&VFTV�V�V�B�w7G��Rr���� ��W�g&�W26ƖFUW�g&����6�G���G&�6f�&ӧG&�6�FU������F���6�G���G&�6f�&ӧG&�6�FU�����Т�W�g&�W2V�6R�R�R��6�G����SR��6�G���C��Т�W�g&�W2�fW&&���V�6R�R�R�&���6�F�s�'�6F3#c#c��SR�&���6�F�s���6F3#c#c��Т���vV&��B�67&���&"�v�GF��g���V�v�C�g��Т���vV&��B�67&���&"�G&6��&6�w&�V�C�G&�7&V�C�Т���vV&��B�67&���&"�F�V�"�&6�w&�V�C�6CCVF#�&�&FW"�&F�W3�7��Т���vV&��B�67&���&"�F�V�#���fW"�&6�w&�V�C�3�66c�Т��WC�f�7W2�&�&FW"�6���#�3#Sc6V"���'F�C�&���6�F�s�7�&v&�3rÓ��#3R����Т�����Р�&V7DD���7&VFU&��B�F�7V�V�B�vWDV�V�V�D'��B�w&��Br���&V�FW"�&V7B�7&VFTV�V�V�B�������67&�C���&�G�����F���
+              React.createElement('div', {
+                key:'bpr-'+emp+'-'+wi,
+                style:{ display:'grid',gridTemplateColumns:'180px repeat(7, 1fr)',borderBottom: ei<byPersonData.employees.length-1?'1px solid #f3f4f6':'none',minHeight:36 },
+                onMouseEnter:e=>e.currentTarget.style.background='#fafbfc', onMouseLeave:e=>e.currentTarget.style.background='transparent'
+              },
+                /* Employee name cell */
+                React.createElement('div', {
+                  style:{ padding:'4px 10px',borderRight:'1px solid #e5e7eb',display:'flex',alignItems:'center',fontSize:12,fontWeight:600,color: overbookedSet.has(emp)?'#dc2626':'#334155',background: overbookedSet.has(emp)?'#fef2f2':'transparent',whiteSpace:'nowrap',overflow:'hidden',textOverflow:'ellipsis' }
+                },
+                  wi === 0 ? emp : ''
+                ),
+                /* Day cells showing project assignments */
+                week.map((date, di) => {
+                  const ds = fmtDate(date);
+                  const isToday = ds === today;
+                  const projs = byPersonData.grid[emp]?.[ds] || [];
+                  return React.createElement('div', {
+                    key:'bpc-'+emp+'-'+ds,
+                    style:{ padding:'2px 3px',borderRight:di<6?'1px solid #f3f4f6':'none',background:isToday?'#eff6ff':'transparent',display:'flex',flexDirection:'column',gap:1,justifyContent:'center' }
+                  },
+                    projs.length === 0
+                      ? null
+                      : projs.map(p =>
+                          React.createElement('div', {
+                            key:p.id,
+                            onClick:e=>{e.stopPropagation();setEditProject(p);setShowProjectModal(true);},
+                            style:{ fontSize:10,fontWeight:600,color:p.color,background:p.color+'18',padding:'2px 5px',borderRadius:3,borderLeft:`2px solid ${p.color}`,cursor:'pointer',whiteSpace:'nowrap',overflow:'hidden',textOverflow:'ellipsis',lineHeight:1.4 },
+                            title:p.name,
+                            onMouseOver:e=>e.currentTarget.style.opacity='0.8', onMouseOut:e=>e.currentTarget.style.opacity='1'
+                          }, p.name)
+                        )
+                  );
+                })
+              )
+            )
+          )
+        )
+      )
+    )
+    :
+    /* ══ STANDARD CALENDAR VIEW (Employees / Equipment) ══ */
+    React.createElement('div', { style:{ flex:1,overflow:'auto',padding:'12px',display:'flex',flexDirection:'column',gap:0 }},
+      /* Day headers */
+      React.createElement('div', {
+        style:{ display:'grid',gridTemplateColumns:'repeat(7, 1fr)',gap:1,background:'#e5e7eb',borderRadius:'10px 10px 0 0',overflow:'hidden',flexShrink:0 }
+      },
+        DAY_NAMES.map((d,i) => React.createElement('div', { key:d, style:{ padding:'8px 10px',background: i>=5 ? '#f1f5f9':'#fff',textAlign:'center',fontSize:13,fontWeight:700,color: i>=5 ? '#94a3b8':'#374151',textTransform:'uppercase',letterSpacing:'0.05em' }}, d))
+      ),
+      /* Week rows — projects span across days */
+      weeks.map((week, wi) => {
+        const { segments, numLanes } = getWeekSegments(week);
+        const totalRows = 1 + Math.max(numLanes, 1);
+        return React.createElement('div', {
+          key:wi,
+          style:{ display:'grid',gridTemplateColumns:'repeat(7, 1fr)',gridTemplateRows:`auto repeat(${Math.max(numLanes,1)}, auto)`,borderRadius: wi===numWeeks-1 ? '0 0 10px 10px':0,overflow:'hidden',flex:1,minHeight:0,borderTop:'1px solid #e5e7eb' }
+        },
+          [].concat(
+            /* Day background cells — span all rows */
+            week.map((date, di) => {
+              const ds=fmtDate(date), isToday=ds===today, isWeekend=di>=5;
+              return React.createElement('div', { key:'bg-'+ds, style:{ gridColumn:di+1,gridRow:`1 / ${totalRows+1}`,background:isToday?'#eff6ff':isWeekend?'#f8fafc':'#fff',borderRight:di<6?'1px solid #e5e7eb':'none',borderLeft:isToday?'3px solid #2563eb':'none' }});
+            }),
+            /* Date numbers — row 1 */
+            week.map((date, di) => {
+              const ds=fmtDate(date), isToday=ds===today;
+              return React.createElement('div', { key:'d-'+ds, style:{ gridColumn:di+1,gridRow:1,padding:'4px 5px',zIndex:1 }},
+                React.createElement('span', { style:{ fontSize:13,fontWeight:isToday?800:date.getDate()===1?700:600,background:isToday?'#2563eb':'transparent',color:isToday?'#fff':'#374151',borderRadius:isToday?12:0,padding:isToday?'1px 7px':0,lineHeight:1.5 }},
+                  date.getDate()===1 ? `${['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][date.getMonth()]} ${date.getDate()}` : date.getDate()
+                )
+              );
+            }),
+            /* Project spanning bars — rows 2+ */
+            segments.map(seg => {
+              const p=seg.project, fs=numWeeks<=2?10:9, nfs=numWeeks<=2?13:11;
+              return React.createElement('div', {
+                key:`p-${p.id}-${wi}`,
+                draggable:true,
+                onDragStart:e=>{dragRef.current=p.id;e.dataTransfer.effectAllowed='move';e.currentTarget.style.opacity='0.5';},
+                onDragEnd:e=>{dragRef.current=null;e.currentTarget.style.opacity='1';},
+                onDragOver:e=>{e.preventDefault();e.dataTransfer.dropEffect='move';},
+                onDrop:e=>{e.preventDefault();const fromId=dragRef.current;if(fromId!=null&&fromId!==p.id){setProjectOrder(prev=>{const arr=[...prev];const fi=arr.indexOf(fromId),ti=arr.indexOf(p.id);if(fi<0||ti<0)return prev;arr.splice(fi,1);arr.splice(ti,0,fromId);/* Save new order to Google Sheets */if(api.isConnected()){const orderMap={};arr.forEach((id,i)=>orderMap[id]=i);setSyncStatus('saving');api.updateProjectOrder(orderMap).then(()=>setSyncStatus('saved')).catch(()=>setSyncStatus('error'));}return arr;});}},
+                onClick:e=>{e.stopPropagation();setEditProject(p);setShowProjectModal(true);},
+                onContextMenu:e=>{e.preventDefault();e.stopPropagation();setQuickEdit({project:p,position:{x:e.clientX,y:e.clientY},field:viewMode});},
+                onMouseEnter:()=>setHoveredProject(p.id), onMouseLeave:()=>setHoveredProject(null),
+                style:{ gridColumn:`${seg.startCol+1} / ${seg.endCol+2}`,gridRow:seg.lane+2,background:p.color+'15',borderLeft:`3px solid ${p.color}`,borderRadius:`${seg.isStart?4:0}px ${seg.isEnd?4:0}px ${seg.isEnd?4:0}px ${seg.isStart?4:0}px`,padding:'3px 6px',margin:'1px 2px',cursor:'grab',transition:'opacity 0.1s',opacity:hoveredProject&&hoveredProject!==p.id?0.4:1,zIndex:1,overflow:'hidden',minWidth:0 }
+              },
+                React.createElement('div', { style:{ fontSize:nfs,fontWeight:700,color:p.color,lineHeight:1.3,whiteSpace:'nowrap',overflow:'hidden',textOverflow:'ellipsis' }}, p.name),
+                React.createElement('div', { style:{ display:'flex',flexWrap:'wrap',gap:1,marginTop:1 }},
+                  viewMode === 'employees' ?
+                  p.employees.map((e,idx) => {
+                    const isOB = overbookedSet.has(e);
+                    return React.createElement('span', { key:e, title: isOB ? `OVERBOOKED: ${e} is assigned to multiple projects on the same day` : '', style:{ fontSize:fs,color:isOB?'#dc2626':'#64748b',fontWeight:isOB?700:400,lineHeight:1.3,whiteSpace:'nowrap',background:isOB?'#fef2f2':'transparent',padding:isOB?'0 3px':0,borderRadius:isOB?3:0,animation:isOB?'overbookPulse 1.5s infinite':'' }}, e+(idx<p.employees.length-1?',':''));
+                  })
+                  :
+                  (p.equipment||[]).map((e,idx) => {
+                    const isOB = overbookedEquipSet.has(e);
+                    return React.createElement('span', { key:e, title: isOB ? `OVERBOOKED: ${e} is assigned to multiple projects on the same day` : '', style:{ fontSize:fs,color:isOB?'#dc2626':'#ea580c',fontWeight:isOB?700:500,lineHeight:1.3,whiteSpace:'nowrap',background:isOB?'#fef2f2':'transparent',padding:isOB?'0 3px':0,borderRadius:isOB?3:0,animation:isOB?'overbookPulse 1.5s infinite':'' }}, e+(idx<(p.equipment||[]).length-1?',':''));
+                  })
+                ),
+                /* CC? checkboxes — one per day inside the project bar */
+                React.createElement('div', { style:{ display:'flex', gap:3, marginTop:2, flexWrap:'wrap', justifyContent:'flex-end' }},
+                  (() => {
+                    const ccDays = [];
+                    for (let ci = seg.startCol; ci <= seg.endCol; ci++) {
+                      const ds = fmtDate(week[ci]);
+                      const checked = (p.ccChecks && p.ccChecks[ds]) || false;
+                      const dayLabel = ['M','T','W','Th','F','Sa','Su'][ci];
+                      ccDays.push(React.createElement('label', {
+                        key:'cc-'+ds,
+                        onClick: e => e.stopPropagation(),
+                        onMouseDown: e => e.stopPropagation(),
+                        draggable: false,
+                        style:{ display:'flex', alignItems:'center', gap:1, cursor:'pointer', fontSize:8, fontWeight:600, lineHeight:1, padding:'1px 2px', borderRadius:2, background: checked ? p.color+'25' : 'transparent' },
+                        title: 'CC ' + dayLabel + ': ' + (checked ? 'Confirmed' : 'Not confirmed')
+                      },
+                        React.createElement('input', {
+                          type:'checkbox',
+                          checked: checked,
+                          onChange: e => { e.stopPropagation(); handleToggleCC(p.id, ds); },
+                          onClick: e => e.stopPropagation(),
+                          onMouseDown: e => e.stopPropagation(),
+                          draggable: false,
+                          style:{ width:9, height:9, cursor:'pointer', accentColor: p.color, margin:0 }
+                        }),
+                        React.createElement('span', { style:{ color: p.color, opacity: checked ? 1 : 0.5 }}, dayLabel)
+                      ));
+                    }
+                    return ccDays;
+                  })()
+                )
+              );
+            })
+          )
+        );
+      })
+    ),
+
+    /* ── Available Employees by Day ── */
+    React.createElement('div', {
+      style:{ flexShrink:0,borderTop:'2px solid #d1d5db',background:'#f9fafb' }
+    },
+      /* Toggle header */
+      React.createElement('div', {
+        onClick:()=>setShowAvailability(!showAvailability),
+        style:{ display:'flex',alignItems:'center',justifyContent:'space-between',padding:'8px 16px',cursor:'pointer',userSelect:'none' },
+        onMouseOver:e=>e.currentTarget.style.background='#f1f5f9',
+        onMouseOut:e=>e.currentTarget.style.background='transparent'
+      },
+        React.createElement('div', { style:{ display:'flex',alignItems:'center',gap:8 }},
+          React.createElement('span', { style:{ fontSize:14 }}, '\u{1F4CB}'),
+          React.createElement('span', { style:{ fontSize:13,fontWeight:700,color:'#334155' }}, 'Available Employees'),
+          React.createElement('span', { style:{ fontSize:11,fontWeight:500,color:'#94a3b8' }}, `(unassigned by day)`)
+        ),
+        React.createElement('span', { style:{ fontSize:12,color:'#94a3b8',fontWeight:600 }}, showAvailability ? '▼ Hide' : '▶ Show')
+      ),
+      /* Grid of available employees per day */
+      showAvailability && React.createElement('div', {
+        style:{ maxHeight:200,overflow:'auto',padding:'0 12px 10px' }
+      },
+        weeks.map((week, wi) =>
+          React.createElement('div', {
+            key:'avail-'+wi,
+            style:{ display:'grid',gridTemplateColumns:'repeat(7, 1fr)',gap:1,marginBottom: wi<weeks.length-1?1:0 }
+          },
+            week.map((date, di) => {
+              const ds = fmtDate(date);
+              const avail = availableByDay[ds] || [];
+              const isToday = ds === today;
+              const isWeekend = di >= 5;
+              return React.createElement('div', {
+                key:'av-'+ds,
+                style:{ padding:'4px 6px',background:isToday?'#eff6ff':isWeekend?'#f8fafc':'#fff',borderRight:di<6?'1px solid #e5e7eb':'none',borderBottom:'1px solid #e5e7eb',minHeight:28 }
+              },
+                wi === 0 && React.createElement('div', { style:{ fontSize:10,fontWeight:700,color:'#94a3b8',marginBottom:2,textTransform:'uppercase',letterSpacing:'0.05em' }},
+                  date.getDate()===1 ? `${['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][date.getMonth()]} ${date.getDate()}` : `${['Mon','Tue','Wed','Thu','Fri','Sat','Sun'][di]} ${date.getDate()}`
+                ),
+                wi > 0 && React.createElement('div', { style:{ fontSize:10,fontWeight:600,color:'#94a3b8',marginBottom:2 }},
+                  date.getDate()===1 ? `${['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][date.getMonth()]} ${date.getDate()}` : date.getDate()
+                ),
+                avail.length === 0
+                  ? React.createElement('div', { style:{ fontSize:10,color:'#d1d5db',fontStyle:'italic' }}, 'None')
+                  : React.createElement('div', { style:{ display:'flex',flexDirection:'column',gap:0 }},
+                      avail.map(emp =>
+                        React.createElement('div', { key:emp, style:{ fontSize:10,color:'#16a34a',fontWeight:500,lineHeight:1.5,whiteSpace:'nowrap',overflow:'hidden',textOverflow:'ellipsis' }}, emp)
+                      )
+                    ),
+                avail.length > 0 && React.createElement('div', { style:{ fontSize:9,fontWeight:700,color:'#16a34a',marginTop:2,background:'#dcfce7',padding:'1px 4px',borderRadius:3,display:'inline-block' }}, `${avail.length} avail.`)
+              );
+            })
+          )
+        )
+      )
+    ),
+
+    /* ── TBD Project Queue ── */
+    React.createElement('div', {
+      style:{ flexShrink:0,borderTop:'2px solid #d1d5db',background:'#f9fafb' }
+    },
+      /* Toggle header */
+      React.createElement('div', {
+        onClick:()=>setShowTBDQueue(!showTBDQueue),
+        style:{ display:'flex',alignItems:'center',justifyContent:'space-between',padding:'8px 16px',cursor:'pointer',userSelect:'none' },
+        onMouseOver:e=>e.currentTarget.style.background='#f1f5f9',
+        onMouseOut:e=>e.currentTarget.style.background='transparent'
+      },
+        React.createElement('div', { style:{ display:'flex',alignItems:'center',gap:8,flexWrap:'wrap' }},
+          React.createElement('span', { style:{ fontSize:14 }}, '\u{1F4C2}'),
+          React.createElement('span', { style:{ fontSize:13,fontWeight:700,color:'#334155' }}, 'TBD Project Queue'),
+          React.createElement('span', { style:{ fontSize:11,fontWeight:500,color:'#94a3b8' }}, 'Awarded Jobs that are flexible or unknown start date')
+        ),
+        React.createElement('span', { style:{ fontSize:12,color:'#94a3b8',fontWeight:600 }}, showTBDQueue ? '▼ Hide' : '▶ Show')
+      ),
+      /* Queue content */
+      showTBDQueue && React.createElement('div', {
+        style:{ padding:'0 16px 12px' }
+      },
+        /* Add item row */
+        React.createElement('div', { style:{ display:'flex',gap:8,marginBottom:8 }},
+          React.createElement('input', {
+            type:'text',
+            value:newTBDItem,
+            onChange:e=>setNewTBDItem(e.target.value),
+            onKeyDown:e=>{ if(e.key==='Enter') handleAddTBDItem(); },
+            placeholder:'Add a project to the queue...',
+            style:{ flex:1,padding:'6px 10px',fontSize:12,border:'1px solid #d1d5db',borderRadius:6,outline:'none',background:'#fff' }
+          }),
+          React.createElement('button', {
+            onClick:handleAddTBDItem,
+            style:{ padding:'6px 14px',fontSize:12,fontWeight:600,color:'#fff',background:'#2563eb',border:'none',borderRadius:6,cursor:'pointer',whiteSpace:'nowrap' }
+          }, '+ Add')
+        ),
+        /* List of items */
+        tbdQueue.length === 0
+          ? React.createElement('div', { style:{ fontSize:12,color:'#94a3b8',fontStyle:'italic',padding:'4px 0' }}, 'No projects in queue')
+          : React.createElement('div', { style:{ display:'flex',flexDirection:'column',gap:4 }},
+              tbdQueue.map((item, i) =>
+                React.createElement('div', {
+                  key:i,
+                  style:{ display:'flex',alignItems:'center',justifyContent:'space-between',padding:'6px 10px',background:'#fff',border:'1px solid #e5e7eb',borderRadius:6,fontSize:12,color:'#334155' }
+                },
+                  React.createElement('span', { style:{ fontWeight:500 }}, item),
+                  React.createElement('button', {
+                    onClick:()=>handleRemoveTBDItem(i),
+                    title:'Remove from queue',
+                    style:{ background:'none',border:'none',cursor:'pointer',fontSize:14,color:'#94a3b8',padding:'0 4px',lineHeight:1 },
+                    onMouseOver:e=>e.currentTarget.style.color='#dc2626',
+                    onMouseOut:e=>e.currentTarget.style.color='#94a3b8'
+                  }, '×')
+                )
+              )
+            )
+      )
+    ),
+
+    /* ── Overbooking warnings ── */
+    (Object.keys(overbookedEmps).length > 0 || Object.keys(overbookedEquip).length > 0) && React.createElement('div', {
+      style:{ padding:'8px 16px',background:'#fef2f2',borderTop:'2px solid #fca5a5',display:'flex',alignItems:'flex-start',gap:10,flexShrink:0,overflow:'auto',maxHeight:140 }
+    },
+      React.createElement('span', { style:{ fontSize:16,lineHeight:1.3,flexShrink:0 }}, '\u26a0\ufe0f'),
+      React.createElement('div', { style:{ display:'flex',flexDirection:'column',gap:4,flex:1,minWidth:0 }},
+        Object.keys(overbookedEmps).length > 0 && React.createElement('div', {},
+          React.createElement('span', { style:{ fontSize:12,fontWeight:700,color:'#991b1b' }}, `Employee Overbooking \u2014 ${Object.keys(overbookedEmps).length} employee${Object.keys(overbookedEmps).length>1?'s':''}:`),
+          React.createElement('div', { style:{ display:'flex',flexWrap:'wrap',gap:4,marginTop:2 }},
+            Object.entries(overbookedEmps).map(([emp, conflicts]) =>
+              React.createElement('span', {
+                key:emp,
+                title: conflicts.map(c => `${c.date}: ${c.projects.join(' & ')}`).join('\n'),
+                style:{ fontSize:11,fontWeight:600,color:'#dc2626',background:'#fff',padding:'2px 8px',borderRadius:4,border:'1px solid #fca5a5',cursor:'help',whiteSpace:'nowrap' }
+              }, `${emp} (${conflicts.length} day${conflicts.length>1?'s':''})`)
+            )
+          )
+        ),
+        Object.keys(overbookedEquip).length > 0 && React.createElement('div', {},
+          React.createElement('span', { style:{ fontSize:12,fontWeight:700,color:'#9a3412' }}, `Equipment Overbooking \u2014 ${Object.keys(overbookedEquip).length} item${Object.keys(overbookedEquip).length>1?'s':''}:`),
+          React.createElement('div', { style:{ display:'flex',flexWrap:'wrap',gap:4,marginTop:2 }},
+            Object.entries(overbookedEquip).map(([eq, conflicts]) =>
+              React.createElement('span', {
+                key:eq,
+                title: conflicts.map(c => `${c.date}: ${c.projects.join(' & ')}`).join('\n'),
+                style:{ fontSize:11,fontWeight:600,color:'#ea580c',background:'#fff',padding:'2px 8px',borderRadius:4,border:'1px solid #fdba74',cursor:'help',whiteSpace:'nowrap' }
+              }, `${eq} (${conflicts.length} day${conflicts.length>1?'s':''})`)
+            )
+          )
+        )
+      )
+    ),
+
+    /* ── Modals ── */
+    React.createElement(ProjectFormModal, { open:showProjectModal, onClose:()=>{ setShowProjectModal(false); setEditProject(null); }, onSave:handleSaveProject, onDelete:handleDeleteProject, onSplit:handleSplitProject, project:editProject, allEmployees:employees, allEquipment:equipment, usedColors }),
+    React.createElement(CSVImportModal, { open:showImport, onClose:()=>setShowImport(false), onImport:handleImportProjects }),
+    React.createElement(ManageEmployeesModal, { open:showEmployees, onClose:()=>setShowEmployees(false), employees, onUpdate:handleUpdateEmployees }),
+    React.createElement(ManageEquipmentModal, { open:showEquipment, onClose:()=>setShowEquipment(false), equipment, onUpdate:handleUpdateEquipment }),
+    quickEdit && React.createElement(QuickEditPopup, { project:quickEdit.project, position:quickEdit.position, allItems:quickEdit.field==='equipment'?equipment:employees, field:quickEdit.field==='equipment'?'equipment':'employees', onUpdate:handleQuickUpdate, onClose:()=>setQuickEdit(null) }),
+    React.createElement(UserPickerModal, { open:showUserPicker, onSelect:selectUser, allUsers:employees }),
+    React.createElement(ActivityDashboard, { open:showDashboard, onClose:()=>setShowDashboard(false) }),
+
+    React.createElement('style', {}, `
+      @keyframes slideUp { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
+      @keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:0.4; } }
+      @keyframes overbookPulse { 0%,100% { box-shadow:0 0 2px #dc2626; } 50% { box-shadow:0 0 8px #dc2626; } }
+      ::-webkit-scrollbar { width:6px; height:6px; }
+      ::-webkit-scrollbar-track { background:transparent; }
+      ::-webkit-scrollbar-thumb { background:#d1d5db; border-radius:3px; }
+      ::-webkit-scrollbar-thumb:hover { background:#9ca3af; }
+      input:focus { border-color:#2563eb !important; box-shadow:0 0 0 3px rgba(37,99,235,0.1); }
+    `)
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(React.createElement(App));
+</script>
+</body>
+</html>
