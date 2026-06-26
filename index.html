@@ -60,6 +60,9 @@ function parseDate(s) {
 
 const DAY_NAMES = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
 
+// Project Managers — listed only in the Activity Tracking user picker; excluded from the Employees roster
+const PROJECT_MANAGERS = ['JD Steer','Cooper Steer','Jacob Huff','Hunter Brewer','Mike Cook','JB Boyle'];
+
 /* ─── Google Sheets API layer ─── */
 const api = {
   isConnected() { return !!APPS_SCRIPT_URL; },
@@ -838,7 +841,7 @@ function App() {
             const sorted = [...data.projects].sort((a,b) => (a.sortOrder||0) - (b.sortOrder||0));
             setProjects(sorted);
             setProjectOrder(sorted.map(p => p.id));
-            setEmployees(data.employees);
+            setEmployees((data.employees || []).filter(function(e){ return !PROJECT_MANAGERS.includes(e); }));
             setEquipment(data.equipment || []);
             setTBDQueue(data.tbdQueue || []);
             setNextId(data.nextId);
@@ -880,7 +883,7 @@ function App() {
           const sorted = [...data.projects].sort((a,b) => (a.sortOrder||0) - (b.sortOrder||0));
           setProjects(sorted);
           setProjectOrder(sorted.map(p => p.id));
-          setEmployees(data.employees);
+          setEmployees((data.employees || []).filter(function(e){ return !PROJECT_MANAGERS.includes(e); }));
           setEquipment(data.equipment || []);
           setTBDQueue(data.tbdQueue || []);
           setNextId(data.nextId);
@@ -929,7 +932,7 @@ function App() {
   async function handleSaveProject(data) {
     if (!data.equipment) data.equipment = [];
     const newEmps = data.employees.filter(e => !employees.includes(e));
-    if (newEmps.length > 0) setEmployees(prev => [...prev, ...newEmps]);
+    if (newEmps.length > 0) setEmployees(prev => [...prev, ...newEmps.filter(function(e){ return !PROJECT_MANAGERS.includes(e); })]);
     const newEquips = data.equipment.filter(e => !equipment.includes(e));
     if (newEquips.length > 0) setEquipment(prev => [...prev, ...newEquips]);
 
@@ -1039,7 +1042,7 @@ function App() {
     setProjects(prev => [...prev, ...newProjects]);
     setNextId(id);
     const allNewEmps = [...new Set(imported.flatMap(p=>p.employees))].filter(e=>!employees.includes(e));
-    if (allNewEmps.length > 0) setEmployees(prev => [...prev, ...allNewEmps]);
+    if (allNewEmps.length > 0) setEmployees(prev => [...prev, ...allNewEmps.filter(function(e){ return !PROJECT_MANAGERS.includes(e); })]);
     if (api.isConnected()) {
       setSyncStatus('saving');
       try { await api.importProjects(newProjects); setSyncStatus('saved'); }
@@ -1633,7 +1636,7 @@ function App() {
     React.createElement(ManageEmployeesModal, { open:showEmployees, onClose:()=>setShowEmployees(false), employees, onUpdate:handleUpdateEmployees }),
     React.createElement(ManageEquipmentModal, { open:showEquipment, onClose:()=>setShowEquipment(false), equipment, onUpdate:handleUpdateEquipment }),
     quickEdit && React.createElement(QuickEditPopup, { project:quickEdit.project, position:quickEdit.position, allItems:quickEdit.field==='equipment'?equipment:employees, field:quickEdit.field==='equipment'?'equipment':'employees', onUpdate:handleQuickUpdate, onClose:()=>setQuickEdit(null) }),
-    React.createElement(UserPickerModal, { open:showUserPicker, onSelect:selectUser, allUsers:employees }),
+    React.createElement(UserPickerModal, { open:showUserPicker, onSelect:selectUser, allUsers:PROJECT_MANAGERS }),
     React.createElement(ActivityDashboard, { open:showDashboard, onClose:()=>setShowDashboard(false) }),
 
     React.createElement('style', {}, `
