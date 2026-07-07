@@ -995,6 +995,7 @@ function App() {
     let id = nextId;
     const newPart1 = { ...part1, id: id };
     const newPart2 = { ...part2, id: id + 1 };
+    let part2ForEdit = newPart2;
     setProjects(prev => [...prev, newPart1, newPart2]);
     setNextId(id + 2);
 
@@ -1006,14 +1007,14 @@ function App() {
         const res1 = await api.createProject(part1);
         if (res1.id) setProjects(prev => prev.map(p => p.id === newPart1.id ? { ...p, id: res1.id } : p));
         const res2 = await api.createProject(part2);
-        if (res2.id) setProjects(prev => prev.map(p => p.id === newPart2.id ? { ...p, id: res2.id } : p));
+        if (res2.id) { part2ForEdit = { ...newPart2, id: res2.id }; setProjects(prev => prev.map(p => p.id === newPart2.id ? { ...p, id: res2.id } : p)); }
         setSyncStatus('saved');
       } catch { setSyncStatus('error'); }
     }
 
     /* Open Part 2 for editing so user can adjust the crew */
     setTimeout(() => {
-      setEditProject(newPart2);
+      setEditProject(part2ForEdit);
       setShowProjectModal(true);
     }, 300);
   }
